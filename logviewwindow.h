@@ -40,7 +40,6 @@ private:
     std::shared_ptr<Divisaction::WorldManager> worldManager;
 
     QTimer* updateTimer;
-    void updateProgress();
 
     void restart();
 
@@ -48,7 +47,7 @@ private:
     void pause();
     bool paused;
 private slots:
-    void updateWorld();
+    void update();
     void moveScrollBarToBottom(int min, int max);
     void on_playPauseButton_clicked();
     void on_actionExit_triggered();
