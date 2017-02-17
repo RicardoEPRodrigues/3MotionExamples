@@ -35,7 +35,7 @@ RemoteSystemsTempFiles
 .settings
 
 # Qt
-build-DivisactionQt*
+build-debug-*
 *.pro
 *.pro.user
 

@@ -1,36 +1,10 @@
-/*
- * Copyright (C) ricardo 2016 - All Rights Reserved
- */
-
-#include "Divisaction.h"
-#include "DivisactionExtras.h"
-
-#include "Modules/CoopSceneBobReact.h"
-#include "Modules/CoopSceneBobDecide.h"
-#include "Modules/CoopSceneHannaReact.h"
-#include "Modules/CoopSceneHannaDecide.h"
-#include "Modules/DelayPerceive.h"
-#include "Modules/Perform.h"
-
-#include "logviewwindow.h"
-//#include "agentviewwindow.h"
-#include <QApplication>
-#include <QFile>
+#include "worldholder.h"
 
 using namespace Divisaction;
 
-void setStyle(QApplication& a) {
-  QFile file(":/style.css");
-  file.open(QFile::ReadOnly);
-  QString styleSheet = QLatin1String(file.readAll());
-  file.close();
-  a.setStyleSheet(styleSheet);
-}
+WorldHolder::WorldHolder() {}
 
-int main(int argc, char* argv[]) {
-  QApplication a(argc, argv);
-  setStyle(a);
-
+std::shared_ptr<WorldManager> WorldHolder::CreateWorld() {
   Time::setTimeCalculator(new ChronoTimeCalculator());
 
   auto worldManager = std::make_shared<WorldManager>();
@@ -72,14 +46,5 @@ int main(int argc, char* argv[]) {
   agentHanna->initialize();
   worldManager->agents.push_back(agentHanna);
 
-  LogViewWindow w;
-  w.init(worldManager);
-  //    AgentViewWindow w;
-  w.show();
-
-  const int retval = a.exec();
-
-  // Shutdown functions
-
-  return retval;
+  return worldManager;
 }
