@@ -5,7 +5,7 @@
 #include "logviewwindow.h"
 #include "ui_logviewwindow.h"
 
-//#include "agentviewwindow.h"
+#include "worldholder.h"
 
 using namespace Divisaction;
 using namespace std;
@@ -35,7 +35,7 @@ LogViewWindow::~LogViewWindow() {
 }
 
 void LogViewWindow::init(
-    std::shared_ptr<Divisaction::WorldManager> &worldManager) {
+    std::shared_ptr<Divisaction::WorldManager> worldManager) {
   this->worldManager = worldManager;
   this->pause();
   if (this->worldManager) {
@@ -48,13 +48,13 @@ void LogViewWindow::init(
 }
 
 void LogViewWindow::restart() {
-//  if (worldManager) {
-//    worldManager = nullptr;
-//  }
-//  QtHelper::clearLayout(ui->ActionStackLayout);
-//  this->actionsProgress.clear();
+    if (worldManager) {
+      worldManager = nullptr;
+    }
+    QtHelper::clearLayout(ui->ActionStackLayout);
+    this->actionsProgress.clear();
 
-//  init(worldManager);
+    init(WorldHolder::CreateWorld());
 }
 
 void LogViewWindow::update() {
@@ -142,11 +142,5 @@ void LogViewWindow::on_playPauseButton_clicked() {
 }
 
 void LogViewWindow::on_actionExit_triggered() { QApplication::exit(); }
-
-void LogViewWindow::on_actionAction_View_triggered() {
-  //    (new AgentViewWindow())->show();
-  //    updateTimer->stop();
-  //    this->hide();
-}
 
 void LogViewWindow::on_actionRestart_triggered() { restart(); }
