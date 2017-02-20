@@ -36,7 +36,6 @@ RemoteSystemsTempFiles
 
 # Qt
 build-debug-*
-*.pro
 *.pro.user
 
 # CLion

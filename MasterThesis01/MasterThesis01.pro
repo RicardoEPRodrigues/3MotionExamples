@@ -13,18 +13,41 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = MasterThesis01
 TEMPLATE = app
 
-
 SOURCES += main.cpp\
     actionprogress.cpp \
     qthelper.cpp \
     logviewwindow.cpp \
-    worldholder.cpp
+    worldholder.cpp \
+    FullModel/Actions.cpp \
+    FullModel/Emotions.cpp \
+    FullModel/Modules/CoopSceneBobDecide.cpp \
+    FullModel/Modules/CoopSceneBobReact.cpp \
+    FullModel/Modules/CoopSceneHannaDecide.cpp \
+    FullModel/Modules/CoopSceneHannaReact.cpp \
+    Screening/S_Actions.cpp \
+    Screening/Modules/S_CoopSceneBobReact.cpp \
+    Screening/Modules/S_CoopSceneHannaReact.cpp \
+    NoAnticipation/NA_Actions.cpp \
+    NoAnticipation/Modules/NA_CoopSceneHannaReact.cpp \
+    NoAnticipation/Modules/NA_CoopSceneBobReact.cpp
 
 HEADERS  += \
     actionprogress.h \
     qthelper.h \
     logviewwindow.h \
-    worldholder.h
+    worldholder.h \
+    FullModel/Actions.h \
+    FullModel/Emotions.h \
+    FullModel/Modules/CoopSceneBobDecide.h \
+    FullModel/Modules/CoopSceneBobReact.h \
+    FullModel/Modules/CoopSceneHannaDecide.h \
+    FullModel/Modules/CoopSceneHannaReact.h \
+    Screening/S_Actions.h \
+    Screening/Modules/S_CoopSceneBobReact.h \
+    Screening/Modules/S_CoopSceneHannaReact.h \
+    NoAnticipation/NA_Actions.h \
+    NoAnticipation/Modules/NA_CoopSceneBobReact.h \
+    NoAnticipation/Modules/NA_CoopSceneHannaReact.h
 
 FORMS    += \
     actionprogress.ui \

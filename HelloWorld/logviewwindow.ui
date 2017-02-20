@@ -67,16 +67,7 @@
     <addaction name="actionRestart"/>
     <addaction name="actionExit"/>
    </widget>
-   <widget class="QMenu" name="menuScenes">
-    <property name="title">
-     <string>Scenes</string>
-    </property>
-    <addaction name="actionFull_Model"/>
-    <addaction name="actionNo_Anticipation"/>
-    <addaction name="actionRandom"/>
-   </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuScenes"/>
   </widget>
   <action name="actionExit">
    <property name="text">
@@ -92,21 +83,6 @@
    </property>
    <property name="shortcut">
     <string>F5</string>
-   </property>
-  </action>
-  <action name="actionFull_Model">
-   <property name="text">
-    <string>Full Model</string>
-   </property>
-  </action>
-  <action name="actionNo_Anticipation">
-   <property name="text">
-    <string>No Anticipation</string>
-   </property>
-  </action>
-  <action name="actionRandom">
-   <property name="text">
-    <string>Random</string>
    </property>
   </action>
  </widget>

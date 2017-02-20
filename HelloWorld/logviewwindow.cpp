@@ -5,6 +5,8 @@
 #include "logviewwindow.h"
 #include "ui_logviewwindow.h"
 
+#include "worldholder.h"
+
 using namespace Divisaction;
 using namespace std;
 
@@ -32,16 +34,13 @@ LogViewWindow::~LogViewWindow() {
   scrollbar = nullptr;
 }
 
-void LogViewWindow::init(WorldHolder::SceneType type) {
+void LogViewWindow::init(
+    std::shared_ptr<Divisaction::WorldManager> worldManager) {
   QtHelper::clearLayout(ui->ActionStackLayout);
-  actionsProgress.clear();
-
-  sceneType = type;
-  worldManager = WorldHolder::CreateWorld(sceneType);
-
-  pause();
-
-  if (worldManager) {
+  this->actionsProgress.clear();
+  this->worldManager = worldManager;
+  this->pause();
+  if (this->worldManager) {
     QLabel *descriptionLabel = new QLabel();
     descriptionLabel->setText(
         QString::fromStdString(worldManager->description));
@@ -49,8 +48,6 @@ void LogViewWindow::init(WorldHolder::SceneType type) {
     ui->ActionStackLayout->addWidget(descriptionLabel);
   }
 }
-
-void LogViewWindow::init() { this->init(this->sceneType); }
 
 void LogViewWindow::update() {
   Time::update();
@@ -134,17 +131,6 @@ void LogViewWindow::on_playPauseButton_clicked() {
 
 void LogViewWindow::on_actionExit_triggered() { QApplication::exit(); }
 
-void LogViewWindow::on_actionRestart_triggered() { init(); }
-
-void LogViewWindow::on_actionFull_Model_triggered() {
-  init(WorldHolder::SceneType::FULL_MODEL);
-}
-
-void LogViewWindow::on_actionNo_Anticipation_triggered() {
-
-  init(WorldHolder::SceneType::NO_ANTICIPATION);
-}
-
-void LogViewWindow::on_actionRandom_triggered() {
-  init(WorldHolder::SceneType::SCREENING);
+void LogViewWindow::on_actionRestart_triggered() {
+  init(WorldHolder::CreateWorld());
 }

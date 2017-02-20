@@ -2,6 +2,8 @@
  * Copyright (C) ricardo 2016 - All Rights Reserved
  */
 
+#include "worldholder.h"
+
 #include "logviewwindow.h"
 #include <QApplication>
 #include <QFile>
@@ -20,8 +22,10 @@ int main(int argc, char* argv[]) {
   QApplication a(argc, argv);
   setStyle(a);
 
+  auto worldManager = WorldHolder::CreateWorld();
+
   LogViewWindow w;
-  w.init(WorldHolder::SceneType::FULL_MODEL);
+  w.init(worldManager);
   w.show();
 
   const int retval = a.exec();

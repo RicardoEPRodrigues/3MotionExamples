@@ -2,21 +2,23 @@
 #define WORLDHOLDER_H
 
 #include "Divisaction.h"
-#include "DivisactionExtras.h"
-
-#include "Modules/CoopSceneBobDecide.h"
-#include "Modules/CoopSceneBobReact.h"
-#include "Modules/CoopSceneHannaDecide.h"
-#include "Modules/CoopSceneHannaReact.h"
-#include "Modules/DelayPerceive.h"
-#include "Modules/Perform.h"
 
 class WorldHolder
 {
 private:
     WorldHolder();
 public:
-    static std::shared_ptr<class Divisaction::WorldManager> CreateWorld();
+    enum SceneType {
+        FULL_MODEL,
+        NO_ANTICIPATION,
+        SCREENING
+    };
+
+    static std::shared_ptr<class Divisaction::WorldManager> CreateWorld(SceneType type);
+
+    static std::shared_ptr<class Divisaction::WorldManager> CreateWorldCoop();
+    static std::shared_ptr<class Divisaction::WorldManager> CreateWorldCoopNoAnticipation();
+    static std::shared_ptr<class Divisaction::WorldManager> CreateWorldCoopScreening();
 };
 
 #endif // WORLDHOLDER_H
