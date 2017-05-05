@@ -9,7 +9,7 @@
 #include "DModule.h"
 #include "Time.h"
 
-class CoopSceneHannaDecide : public Divisaction::DecideModule {
+class CoopSceneHannaDecide : public Divisaction::InterpretModule {
  public:
   CoopSceneHannaDecide();
 

@@ -8,7 +8,7 @@
 
 #include "DModule.h"
 
-class CoopSceneBobReact : public Divisaction::ReactModule {
+class CoopSceneBobReact : public Divisaction::InterpretModule {
  public:
   CoopSceneBobReact();
 

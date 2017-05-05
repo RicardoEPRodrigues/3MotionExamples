@@ -8,7 +8,7 @@
 using namespace Divisaction;
 
 CoopSceneHannaDecide::CoopSceneHannaDecide()
-    : DecideModule(), interval(2000), alreadyActed(false), timer(nullptr) {}
+    : InterpretModule(), interval(2000), alreadyActed(false), timer(nullptr) {}
 
 void CoopSceneHannaDecide::_execute() {
   //        if (mentalState->self.emotionHasName("Fear")) {
@@ -21,7 +21,7 @@ void CoopSceneHannaDecide::_execute() {
       } else {
         // Follow Bob if he's walking.
         if (!timer) {
-          OtherMentalRepresentation* bobMentalRep;
+          OtherMentalState* bobMentalRep;
           if ((bobMentalRep = mentalState->getOther("Bob"))) {
             if (bobMentalRep->actionHasName("Long Walk")) {
               timer = wait(interval, [this]() {

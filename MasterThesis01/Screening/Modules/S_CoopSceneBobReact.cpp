@@ -28,7 +28,7 @@ void Screening::CoopSceneBobReact::_execute() {
       alreadyFelt[2] = true;
     }
 
-    OtherMentalRepresentation* hannaMentalRep;
+    OtherMentalState* hannaMentalRep;
     if ((hannaMentalRep = mentalState->getOther("Hanna"))) {
       if (hannaMentalRep->updateAction && hannaMentalRep->updateEmotion &&
           hannaMentalRep->action && hannaMentalRep->emotion) {
@@ -36,7 +36,7 @@ void Screening::CoopSceneBobReact::_execute() {
         hannaMentalRep->updateEmotion = false;
         if (auto origin = hannaMentalRep->agent.lock()) {
           wait(4000, [this, hannaMentalRep]() {
-            if (std::shared_ptr<MentalState> innerMentalState =
+            if (std::shared_ptr<TheoryOfMind> innerMentalState =
                     mentalStateWeak.lock()) {
               if (auto innerOrigin = hannaMentalRep->agent.lock()) {
                 if (hannaMentalRep->state ==

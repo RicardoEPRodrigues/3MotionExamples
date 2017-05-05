@@ -9,7 +9,7 @@
 #include "DModule.h"
 
 namespace Screening {
-class CoopSceneHannaReact : public Divisaction::ReactModule {
+class CoopSceneHannaReact : public Divisaction::InterpretModule {
  public:
   CoopSceneHannaReact();
 

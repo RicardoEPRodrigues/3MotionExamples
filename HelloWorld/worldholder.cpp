@@ -29,12 +29,18 @@ std::shared_ptr<WorldManager> WorldHolder::CreateWorld() {
   // The DelayPerceive only tells the agent about new events after a period of
   // time.
   agentBob->perceiveModules.push_back(std::make_unique<DelayPerceive>());
-  // The React Modules determine the emotion an agent is feeling.
-  // The SingleEmotionReact selects the first emotion available once.
-  agentBob->reactModules.push_back(std::make_unique<SingleEmotionReact>());
-  // The Decision Modules determine the action an agent is performing.
-  // The SingleActionDecide selects the first action available once.
-  agentBob->decideModules.push_back(std::make_unique<SingleActionDecide>());
+  // The Interpret Modules should determine what emotions and
+  // actions an agent should perform.
+  // A React Module is an Interpret Module that determines the emotion
+  // an agent is feeling.
+  // The SingleEmotionReact selects the first emotion available and executes
+  // it once.
+  agentBob->interpretModules.push_back(std::make_unique<SingleEmotionReact>());
+  // A Decision Module is an Interpret Module that determines the action
+  // an agent is performing.
+  // The SingleActionDecide selects the first action available and executes
+  // it once.
+  agentBob->interpretModules.push_back(std::make_unique<SingleActionDecide>());
   // The Perform Modules perform the action and emotions and are also tasked
   // with generating the events the agent will send.
   // The Perform executes the action and emotion previously executed.
@@ -67,10 +73,11 @@ std::shared_ptr<WorldManager> WorldHolder::CreateWorld() {
       "winks at ");
   agentBob->addAvailableEmotion(confidence);
 
-  agentHanna->perceiveModules.push_back(std::make_unique<DelayPerceive>());
-  // The SingleReplyReact selects the first action available once.
-  agentHanna->reactModules.push_back(std::make_unique<SingleReplyReact>());
   agentHanna->name = std::string("Hanna");
+  agentHanna->perceiveModules.push_back(std::make_unique<DelayPerceive>());
+  // The SingleReplyReact selects the first emotion available and executes
+  // it when another agent's action changes it's state (when starting for example).
+  agentHanna->interpretModules.push_back(std::make_unique<SingleReplyReact>());
   // You may have noticed the this agent doesn't have a Decision Module, that is
   // ok, all modules are optional, but of course this means that the agent will
   // not choose an action.

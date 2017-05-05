@@ -24,7 +24,7 @@ void CoopSceneHannaReact::_execute() {
       alreadyFelt[1] = true;
     }
 
-    OtherMentalRepresentation* bobMentalRep;
+    OtherMentalState* bobMentalRep;
     if ((bobMentalRep = mentalState->getOther("Bob"))) {
       if (bobMentalRep->updateAction && bobMentalRep->updateEmotion &&
           bobMentalRep->action && bobMentalRep->emotion) {
@@ -35,7 +35,6 @@ void CoopSceneHannaReact::_execute() {
             std::string emotionName;
             if (bobMentalRep->state == StageType::ANTICIPATION_INTERRUPTIBLE) {
               emotionName = "Apprehension";
-              //                                emotionName = "Fear";
             } else {
               emotionName = "Relief";
             }

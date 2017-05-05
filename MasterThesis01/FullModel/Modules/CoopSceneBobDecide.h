@@ -8,7 +8,7 @@
 
 #include "DModule.h"
 
-class CoopSceneBobDecide : public Divisaction::DecideModule {
+class CoopSceneBobDecide : public Divisaction::InterpretModule {
  public:
   CoopSceneBobDecide();
 

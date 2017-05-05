@@ -26,7 +26,7 @@ void CoopSceneBobReact::_execute() {
       alreadyFelt[2] = true;
     }
 
-    OtherMentalRepresentation* hannaMentalRep;
+    OtherMentalState* hannaMentalRep;
     if ((hannaMentalRep = mentalState->getOther("Hanna"))) {
       if (hannaMentalRep->updateAction && hannaMentalRep->updateEmotion &&
           hannaMentalRep->action && hannaMentalRep->emotion) {

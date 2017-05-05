@@ -12,7 +12,7 @@ NoAnticipation::CoopSceneHannaReact::CoopSceneHannaReact() {
 }
 
 void NoAnticipation::CoopSceneHannaReact::_execute() {
-  if (std::shared_ptr<MentalState> mentalState = mentalStateWeak.lock()) {
+  if (std::shared_ptr<TheoryOfMind> mentalState = mentalStateWeak.lock()) {
     if (!alreadyFelt[0] &&
         mentalState->self.actionInStage(
             StageType::ANTICIPATION_INTERRUPTIBLE)) {
@@ -24,7 +24,7 @@ void NoAnticipation::CoopSceneHannaReact::_execute() {
       alreadyFelt[1] = true;
     }
 
-    OtherMentalRepresentation* bobMentalRep;
+    OtherMentalState* bobMentalRep;
     if ((bobMentalRep = mentalState->getOther("Bob"))) {
       if (bobMentalRep->updateAction && bobMentalRep->updateEmotion &&
           bobMentalRep->action && bobMentalRep->emotion) {
