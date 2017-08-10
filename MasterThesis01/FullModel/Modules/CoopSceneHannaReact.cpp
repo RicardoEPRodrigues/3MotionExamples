@@ -15,16 +15,16 @@ void CoopSceneHannaReact::_execute() {
   if (auto mentalState = mentalStateWeak.lock()) {
     if (!alreadyFelt[0] &&
         mentalState->self.actionInStage(
-            StageType::ANTICIPATION_INTERRUPTIBLE)) {
+            DStageType::ANTICIPATION_INTERRUPTIBLE)) {
       mentalState->self.emotion = mentalState->self.getEmotion("Fear");
       alreadyFelt[0] = true;
     } else if (!alreadyFelt[1] &&
-               mentalState->self.actionInStage(StageType::FOLLOW_THROUGH)) {
+               mentalState->self.actionInStage(DStageType::FOLLOW_THROUGH)) {
       mentalState->self.emotion = mentalState->self.getEmotion("Happiness");
       alreadyFelt[1] = true;
     }
 
-    OtherMentalState* bobMentalRep;
+    DOtherMentalState* bobMentalRep;
     if ((bobMentalRep = mentalState->getOther("Bob"))) {
       if (bobMentalRep->updateAction && bobMentalRep->updateEmotion &&
           bobMentalRep->action && bobMentalRep->emotion) {
@@ -33,7 +33,7 @@ void CoopSceneHannaReact::_execute() {
         if (auto self = mentalState->self.agent.lock()) {
           if (auto origin = bobMentalRep->agent.lock()) {
             std::string emotionName;
-            if (bobMentalRep->state == StageType::ANTICIPATION_INTERRUPTIBLE) {
+            if (bobMentalRep->stage == DStageType::ANTICIPATION_INTERRUPTIBLE) {
               emotionName = "Apprehension";
             } else {
               emotionName = "Relief";

@@ -13,10 +13,10 @@
 
 #include "qthelper.h"
 
-#include "Agent.h"
-#include "Stage.h"
-#include "Event.h"
-#include "Extra/TimeProgressiveStage.h"
+#include "DAgent.h"
+#include "DStage.h"
+#include "DEvent.h"
+#include "Extra/DTimeProgressiveStage.h"
 
 namespace Ui {
     class ActionProgress;
@@ -34,7 +34,7 @@ private:
 
     Ui::ActionProgress *ui;
 
-    void setReply(std::shared_ptr<Divisaction::IAgent>& agent, std::shared_ptr<Divisaction::EmotionEvent> reply);
+    void setReply(std::shared_ptr<Divisaction::DIAgent>& agent, std::shared_ptr<Divisaction::DEmotionEvent> reply);
 
     int previousWasEqualCounter; // Helper variable to determine if progress bar should be disabled
     int previousWasEqualMax;
@@ -43,18 +43,18 @@ public:
     ~ActionProgress();
 
 
-    void set(std::shared_ptr<Divisaction::IAgent>& agent, std::shared_ptr<Divisaction::Stage> stage);
+    void set(std::shared_ptr<Divisaction::DIAgent>& agent, std::shared_ptr<Divisaction::DStage> stage);
 
-    void addEmotion(std::shared_ptr<Divisaction::Emotion> emotion);
+    void addEmotion(std::shared_ptr<Divisaction::DEmotion> emotion);
 
     void concatDescription(QString text);
 
-    void addReply(std::shared_ptr<Divisaction::Event> reply);
+    void addReply(std::shared_ptr<Divisaction::DEvent> reply);
 
     void update();
 
-    std::shared_ptr<Divisaction::IAgent> agent;
-    std::shared_ptr<Divisaction::TimeProgressiveStage> stage;
+    std::shared_ptr<Divisaction::DIAgent> agent;
+    std::shared_ptr<Divisaction::DTimeProgressiveStage> stage;
 
 };
 

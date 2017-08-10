@@ -30,7 +30,7 @@ class LogViewWindow : public QMainWindow {
   explicit LogViewWindow(QWidget* parent = 0);
   ~LogViewWindow();
 
-  void init(std::shared_ptr<Divisaction::WorldManager> worldManager);
+  void init(std::shared_ptr<Divisaction::DWorldManager> worldManager);
 
  private:
   Ui::LogViewWindow* ui;
@@ -38,7 +38,7 @@ class LogViewWindow : public QMainWindow {
 
   std::vector<ActionProgress*> actionsProgress;
 
-  std::shared_ptr<Divisaction::WorldManager> worldManager;
+  std::shared_ptr<Divisaction::DWorldManager> worldManager;
 
   QTimer* updateTimer;
 

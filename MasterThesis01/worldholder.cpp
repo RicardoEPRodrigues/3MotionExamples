@@ -2,8 +2,8 @@
 
 #include "DivisactionExtras.h"
 
-#include "Modules/DelayPerceive.h"
-#include "Modules/Perform.h"
+#include "Modules/DDelayPerceive.h"
+#include "Modules/DPerform.h"
 
 #include "FullModel/Actions.h"
 #include "FullModel/Emotions.h"
@@ -25,16 +25,16 @@ using namespace std;
 
 WorldHolder::WorldHolder() {}
 
-shared_ptr<WorldManager> WorldHolder::CreateWorld(SceneType type) {
-  Time::setTimeCalculator(new ChronoTimeCalculator());
+shared_ptr<DWorldManager> WorldHolder::CreateWorld(SceneType type) {
+  DTime::setTimeCalculator(std::make_shared<DChronoTimeCalculator>());
 
-  auto worldManager = make_shared<WorldManager>();
+  auto worldManager = make_shared<DWorldManager>();
   worldManager->description =
       "This scenario contains 2 agents, Bob and Hanna.\n The agents are near a "
       "rope bridge.";
 
-  auto agentBob = make_shared<Agent>();
-  auto agentHanna = make_shared<Agent>();
+  auto agentBob = make_shared<DAgent>();
+  auto agentHanna = make_shared<DAgent>();
   agentBob->name = string("Bob");
   agentBob->addAvailableEmotion(make_shared<Confidence>());
   agentBob->addAvailableEmotion(make_shared<Fear>());
@@ -51,10 +51,10 @@ shared_ptr<WorldManager> WorldHolder::CreateWorld(SceneType type) {
   agentHanna->addAvailableEmotion(make_shared<Apprehension>());
   agentHanna->addAvailableEmotion(make_shared<Sadness>());
 
-  agentBob->perceiveModules.push_back(make_unique<DelayPerceive>());
-  agentHanna->perceiveModules.push_back(make_unique<DelayPerceive>());
-  agentBob->performModules.push_back(make_unique<Perform>());
-  agentHanna->performModules.push_back(make_unique<Perform>());
+  agentBob->perceiveModules.push_back(make_unique<DDelayPerceive>());
+  agentHanna->perceiveModules.push_back(make_unique<DDelayPerceive>());
+  agentBob->performModules.push_back(make_unique<DPerform>());
+  agentHanna->performModules.push_back(make_unique<DPerform>());
 
   switch (type) {
     case SceneType::NO_ANTICIPATION:
@@ -104,21 +104,21 @@ shared_ptr<WorldManager> WorldHolder::CreateWorld(SceneType type) {
   return worldManager;
 }
 
-shared_ptr<WorldManager> WorldHolder::CreateWorldCoop() {
-  Time::setTimeCalculator(new ChronoTimeCalculator());
+shared_ptr<DWorldManager> WorldHolder::CreateWorldCoop() {
+  DTime::setTimeCalculator(std::make_shared<DChronoTimeCalculator>());
 
-  auto worldManager = make_shared<WorldManager>();
+  auto worldManager = make_shared<DWorldManager>();
   worldManager->description =
       "This scenario contains 2 agents, Bob and Hanna.\n The agents are near a "
       "rope bridge.";
 
-  auto agentBob = make_shared<Agent>();
-  auto agentHanna = make_shared<Agent>();
+  auto agentBob = make_shared<DAgent>();
+  auto agentHanna = make_shared<DAgent>();
   agentBob->name = string("Bob");
-  agentBob->perceiveModules.push_back(make_unique<DelayPerceive>());
+  agentBob->perceiveModules.push_back(make_unique<DDelayPerceive>());
   agentBob->interpretModules.push_back(make_unique<CoopSceneBobReact>());
   agentBob->interpretModules.push_back(make_unique<CoopSceneBobDecide>());
-  agentBob->performModules.push_back(make_unique<Perform>());
+  agentBob->performModules.push_back(make_unique<DPerform>());
   agentBob->addAvailableAction(make_shared<LongWalk>());
   agentBob->addAvailableAction(make_shared<Follow>(agentHanna));
   agentBob->addAvailableEmotion(make_shared<Confidence>());
@@ -131,10 +131,10 @@ shared_ptr<WorldManager> WorldHolder::CreateWorldCoop() {
   worldManager->agents.push_back(agentBob);
 
   agentHanna->name = string("Hanna");
-  agentHanna->perceiveModules.push_back(make_unique<DelayPerceive>());
+  agentHanna->perceiveModules.push_back(make_unique<DDelayPerceive>());
   agentHanna->interpretModules.push_back(make_unique<CoopSceneHannaReact>());
   agentHanna->interpretModules.push_back(make_unique<CoopSceneHannaDecide>());
-  agentHanna->performModules.push_back(make_unique<Perform>());
+  agentHanna->performModules.push_back(make_unique<DPerform>());
   agentHanna->addAvailableAction(make_shared<LongWalk>());
   agentHanna->addAvailableAction(make_shared<Follow>(agentBob));
   agentHanna->addAvailableEmotion(make_shared<Confidence>());
@@ -149,22 +149,22 @@ shared_ptr<WorldManager> WorldHolder::CreateWorldCoop() {
   return worldManager;
 }
 
-shared_ptr<WorldManager> WorldHolder::CreateWorldCoopNoAnticipation() {
-  Time::setTimeCalculator(new ChronoTimeCalculator());
+shared_ptr<DWorldManager> WorldHolder::CreateWorldCoopNoAnticipation() {
+  DTime::setTimeCalculator(make_shared<DChronoTimeCalculator>());
 
-  auto worldManager = make_shared<WorldManager>();
+  auto worldManager = make_shared<DWorldManager>();
   worldManager->description =
       "This scenario contains 2 agents, Bob and Hanna.\n The agents are near a "
       "rope bridge.";
 
-  auto agentBob = make_shared<Agent>();
-  auto agentHanna = make_shared<Agent>();
+  auto agentBob = make_shared<DAgent>();
+  auto agentHanna = make_shared<DAgent>();
   agentBob->name = string("Bob");
-  agentBob->perceiveModules.push_back(make_unique<DelayPerceive>());
+  agentBob->perceiveModules.push_back(make_unique<DDelayPerceive>());
   agentBob->interpretModules.push_back(
       make_unique<NoAnticipation::CoopSceneBobReact>());
   agentBob->interpretModules.push_back(make_unique<CoopSceneBobDecide>());
-  agentBob->performModules.push_back(make_unique<Perform>());
+  agentBob->performModules.push_back(make_unique<DPerform>());
   agentBob->addAvailableAction(make_shared<NoAnticipation::LongWalk>());
   agentBob->addAvailableAction(make_shared<NoAnticipation::Follow>(agentHanna));
   agentBob->addAvailableEmotion(make_shared<Confidence>());
@@ -177,11 +177,11 @@ shared_ptr<WorldManager> WorldHolder::CreateWorldCoopNoAnticipation() {
   worldManager->agents.push_back(agentBob);
 
   agentHanna->name = string("Hanna");
-  agentHanna->perceiveModules.push_back(make_unique<DelayPerceive>());
+  agentHanna->perceiveModules.push_back(make_unique<DDelayPerceive>());
   agentHanna->interpretModules.push_back(
       make_unique<NoAnticipation::CoopSceneHannaReact>());
   agentHanna->interpretModules.push_back(make_unique<CoopSceneHannaDecide>());
-  agentHanna->performModules.push_back(make_unique<Perform>());
+  agentHanna->performModules.push_back(make_unique<DPerform>());
   agentHanna->addAvailableAction(make_shared<NoAnticipation::LongWalk>());
   agentHanna->addAvailableAction(make_shared<NoAnticipation::Follow>(agentBob));
   agentHanna->addAvailableEmotion(make_shared<Confidence>());
@@ -196,21 +196,21 @@ shared_ptr<WorldManager> WorldHolder::CreateWorldCoopNoAnticipation() {
   return worldManager;
 }
 
-shared_ptr<WorldManager> WorldHolder::CreateWorldCoopScreening() {
-  Time::setTimeCalculator(new ChronoTimeCalculator());
+shared_ptr<DWorldManager> WorldHolder::CreateWorldCoopScreening() {
+  DTime::setTimeCalculator(make_shared<DChronoTimeCalculator>());
 
-  auto worldManager = make_shared<WorldManager>();
+  auto worldManager = make_shared<DWorldManager>();
   worldManager->description =
       "This scenario contains 2 agents, Bob and Hanna.\n The agents are near a "
       "rope bridge.";
 
-  auto agentBob = make_shared<Agent>();
-  auto agentHanna = make_shared<Agent>();
+  auto agentBob = make_shared<DAgent>();
+  auto agentHanna = make_shared<DAgent>();
   agentBob->name = string("Bob");
-  agentBob->perceiveModules.push_back(make_unique<DelayPerceive>());
+  agentBob->perceiveModules.push_back(make_unique<DDelayPerceive>());
   agentBob->interpretModules.push_back(make_unique<Screening::CoopSceneBobReact>());
   agentBob->interpretModules.push_back(make_unique<CoopSceneBobDecide>());
-  agentBob->performModules.push_back(make_unique<Perform>());
+  agentBob->performModules.push_back(make_unique<DPerform>());
   agentBob->addAvailableAction(make_shared<Screening::LongWalk>());
   agentBob->addAvailableAction(make_shared<Screening::Follow>(agentHanna));
   agentBob->addAvailableEmotion(make_shared<Confidence>());
@@ -223,11 +223,11 @@ shared_ptr<WorldManager> WorldHolder::CreateWorldCoopScreening() {
   worldManager->agents.push_back(agentBob);
 
   agentHanna->name = string("Hanna");
-  agentHanna->perceiveModules.push_back(make_unique<DelayPerceive>());
+  agentHanna->perceiveModules.push_back(make_unique<DDelayPerceive>());
   agentHanna->interpretModules.push_back(
       make_unique<Screening::CoopSceneHannaReact>());
   agentHanna->interpretModules.push_back(make_unique<CoopSceneHannaDecide>());
-  agentHanna->performModules.push_back(make_unique<Perform>());
+  agentHanna->performModules.push_back(make_unique<DPerform>());
   agentHanna->addAvailableAction(make_shared<Screening::LongWalk>());
   agentHanna->addAvailableAction(make_shared<Screening::Follow>(agentBob));
   agentHanna->addAvailableEmotion(make_shared<Confidence>());

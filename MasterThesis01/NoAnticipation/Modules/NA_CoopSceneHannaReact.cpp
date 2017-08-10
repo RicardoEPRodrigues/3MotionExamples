@@ -12,19 +12,19 @@ NoAnticipation::CoopSceneHannaReact::CoopSceneHannaReact() {
 }
 
 void NoAnticipation::CoopSceneHannaReact::_execute() {
-  if (std::shared_ptr<TheoryOfMind> mentalState = mentalStateWeak.lock()) {
+  if (std::shared_ptr<DTheoryOfMind> mentalState = mentalStateWeak.lock()) {
     if (!alreadyFelt[0] &&
         mentalState->self.actionInStage(
-            StageType::ANTICIPATION_INTERRUPTIBLE)) {
+            DStageType::ANTICIPATION_INTERRUPTIBLE)) {
       mentalState->self.emotion = mentalState->self.getEmotion("Fear");
       alreadyFelt[0] = true;
     } else if (!alreadyFelt[1] &&
-               mentalState->self.actionInStage(StageType::FOLLOW_THROUGH)) {
+               mentalState->self.actionInStage(DStageType::FOLLOW_THROUGH)) {
       mentalState->self.emotion = mentalState->self.getEmotion("Happiness");
       alreadyFelt[1] = true;
     }
 
-    OtherMentalState* bobMentalRep;
+    DOtherMentalState* bobMentalRep;
     if ((bobMentalRep = mentalState->getOther("Bob"))) {
       if (bobMentalRep->updateAction && bobMentalRep->updateEmotion &&
           bobMentalRep->action && bobMentalRep->emotion) {
@@ -32,7 +32,7 @@ void NoAnticipation::CoopSceneHannaReact::_execute() {
         bobMentalRep->updateEmotion = false;
         if (auto self = mentalState->self.agent.lock()) {
           if (auto origin = bobMentalRep->agent.lock()) {
-            if (bobMentalRep->state == StageType::FOLLOW_THROUGH) {
+            if (bobMentalRep->stage == DStageType::FOLLOW_THROUGH) {
               if ((mentalState->self.emotion =
                        mentalState->self.getEmotion("Relief"))) {
                 mentalState->self.emotion->replyToAgent(origin);

@@ -21,7 +21,7 @@ void CoopSceneHannaDecide::_execute() {
       } else {
         // Follow Bob if he's walking.
         if (!timer) {
-          OtherMentalState* bobMentalRep;
+          DOtherMentalState* bobMentalRep;
           if ((bobMentalRep = mentalState->getOther("Bob"))) {
             if (bobMentalRep->actionHasName("Long Walk")) {
               timer = wait(interval, [this]() {

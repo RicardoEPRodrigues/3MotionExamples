@@ -42,7 +42,7 @@ private:
 
   std::vector<ActionProgress *> actionsProgress;
 
-  std::shared_ptr<Divisaction::WorldManager> worldManager;
+  std::shared_ptr<Divisaction::DWorldManager> worldManager;
 
   QTimer *updateTimer;
 

@@ -23,7 +23,7 @@ LogViewWindow::LogViewWindow(QWidget *parent)
 
   updateTimer = new QTimer(this);
   connect(updateTimer, SIGNAL(timeout()), this, SLOT(update()));
-  Time::update();
+  DTime::update();
   updateTimer->start(20);
 }
 
@@ -53,16 +53,16 @@ void LogViewWindow::init(WorldHolder::SceneType type) {
 void LogViewWindow::init() { this->init(this->sceneType); }
 
 void LogViewWindow::update() {
-  Time::update();
+  DTime::update();
   if (worldManager && !paused) {
     worldManager->update();
 
-    for (shared_ptr<Event> event : worldManager->events) {
-      shared_ptr<EmotionEvent> emotionEvent =
-          dynamic_pointer_cast<EmotionEvent>(event);
+    for (shared_ptr<DEvent> event : worldManager->events) {
+      shared_ptr<DEmotionEvent> emotionEvent =
+          dynamic_pointer_cast<DEmotionEvent>(event);
       if (emotionEvent) {
-        shared_ptr<Emotion> emotion = emotionEvent->emotion;
-        if (shared_ptr<IAgent> replyAgent = emotion->getReplyAgent().lock()) {
+        shared_ptr<DEmotion> emotion = emotionEvent->emotion;
+        if (shared_ptr<DIAgent> replyAgent = emotion->getReplyAgent().lock()) {
           for (std::vector<ActionProgress *>::reverse_iterator progress =
                    actionsProgress.rbegin();
                progress != actionsProgress.rend(); progress++) {
@@ -72,7 +72,7 @@ void LogViewWindow::update() {
             }
           }
         } else {
-          if (shared_ptr<IAgent> sender = emotionEvent->sender.lock()) {
+          if (shared_ptr<DIAgent> sender = emotionEvent->sender.lock()) {
             for (std::vector<ActionProgress *>::reverse_iterator progress =
                      actionsProgress.rbegin();
                  progress != actionsProgress.rend(); progress++) {
@@ -84,8 +84,8 @@ void LogViewWindow::update() {
           }
         }
       } else {
-        shared_ptr<ActionEvent> actionEvent =
-            dynamic_pointer_cast<ActionEvent>(event);
+        shared_ptr<DActionEvent> actionEvent =
+            dynamic_pointer_cast<DActionEvent>(event);
         if (actionEvent) {
           if (auto iagent = actionEvent->sender.lock()) {
             auto stage = actionEvent->action->getCurrentStage();

@@ -4,24 +4,24 @@
  * Copyright (C) Ricardo Rodrigues 2016 - All Rights Reserved
  */
 #include "NA_Actions.h"
-#include "Extra/TimeProgressiveStage.h"
+#include "Extra/DTimeProgressiveStage.h"
 
 using namespace std;
 using namespace Divisaction;
 
 namespace NoAnticipation {
 
-Follow::Follow(std::weak_ptr<IAgent> agent) : Action() {
+Follow::Follow(std::weak_ptr<DIAgent> agent) : DAction() {
   this->setName("Follow");
 
   if (auto agentshr = agent.lock()) {
-    auto anticipation = make_shared<TimeProgressiveStage>(
+    auto anticipation = make_shared<DTimeProgressiveStage>(
         string("follows " + agentshr->name), 2000, 7000);
-    this->setStage(StageType::ANTICIPATION_INTERRUPTIBLE, anticipation);
+    this->setStage(DStageType::ANTICIPATION_INTERRUPTIBLE, anticipation);
 
-    auto finished = make_shared<TimeProgressiveStage>(
+    auto finished = make_shared<DTimeProgressiveStage>(
         string("reaches " + agentshr->name), 2000, 3000);
-    this->setStage(StageType::FOLLOW_THROUGH, finished);
+    this->setStage(DStageType::FOLLOW_THROUGH, finished);
 
     //            auto cancel = make_shared<TimeProgressiveStage>(
     //                    string("stopped following " + agentshr->getName() + "
@@ -30,16 +30,16 @@ Follow::Follow(std::weak_ptr<IAgent> agent) : Action() {
   }
 }
 
-LongWalk::LongWalk() : Action() {
+LongWalk::LongWalk() : DAction() {
   this->setName("Long Walk");
 
-  auto anticipation = make_shared<TimeProgressiveStage>(
+  auto anticipation = make_shared<DTimeProgressiveStage>(
       string("crosses the bridge"), 2000, 7000);
-  this->setStage(StageType::ANTICIPATION_INTERRUPTIBLE, anticipation);
+  this->setStage(DStageType::ANTICIPATION_INTERRUPTIBLE, anticipation);
 
-  auto finished = make_shared<TimeProgressiveStage>(
+  auto finished = make_shared<DTimeProgressiveStage>(
       string("reaches the end of the bridge"), 2000, 3000);
-  this->setStage(StageType::FOLLOW_THROUGH, finished);
+  this->setStage(DStageType::FOLLOW_THROUGH, finished);
 
   //        auto cancel = make_shared<TimeProgressiveStage>(
   //                string("stopped walking abruptly before reaching the end of
@@ -51,16 +51,16 @@ ThrowBall::ThrowBall() {
   this->setName("Throw Ball");
 
   auto anticipation =
-      make_shared<TimeProgressiveStage>(string("throws the ball"), 2000, 7000);
-  this->setStage(StageType::ANTICIPATION_INTERRUPTIBLE, anticipation);
+      make_shared<DTimeProgressiveStage>(string("throws the ball"), 2000, 7000);
+  this->setStage(DStageType::ANTICIPATION_INTERRUPTIBLE, anticipation);
   //
   //        auto execution = make_shared<TimeProgressiveStage>(string("throws
   //        the ball"), 1000, 5000);
   //        this->setStage(StageType::ANTICIPATION_UNINTERRUPTIBLE, execution);
 
-  auto finished = make_shared<TimeProgressiveStage>(
+  auto finished = make_shared<DTimeProgressiveStage>(
       string("sees the ball hit the target"), 2000, 3000);
-  this->setStage(StageType::FOLLOW_THROUGH, finished);
+  this->setStage(DStageType::FOLLOW_THROUGH, finished);
 
   //        auto cancel = make_shared<TimeProgressiveStage>(string("stops his
   //        swing and doesn't throw the ball"), 1000,

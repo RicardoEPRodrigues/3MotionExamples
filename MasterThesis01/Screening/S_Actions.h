@@ -6,21 +6,21 @@
 #ifndef SCREENING_ACTIONS_H
 #define SCREENING_ACTIONS_H
 
-#include "Action.h"
-#include "IAgent.h"
+#include "DAction.h"
+#include "DIAgent.h"
 
 namespace Screening {
-class Follow : public Divisaction::Action {
+class Follow : public Divisaction::DAction {
  public:
-  Follow(std::weak_ptr<Divisaction::IAgent> agent);
+  Follow(std::weak_ptr<Divisaction::DIAgent> agent);
 };
 
-class LongWalk : public Divisaction::Action {
+class LongWalk : public Divisaction::DAction {
  public:
   LongWalk();
 };
 
-class ThrowBall : public Divisaction::Action {
+class ThrowBall : public Divisaction::DAction {
  public:
   ThrowBall();
 };

@@ -2,90 +2,90 @@
 
 #include "DivisactionExtras.h"
 
-#include "Modules/DelayPerceive.h"
-#include "Modules/Perform.h"
-#include "Modules/SingleActionDecide.h"
-#include "Modules/SingleEmotionReact.h"
-#include "Modules/SingleReplyReact.h"
+#include "Modules/DDelayPerceive.h"
+#include "Modules/DPerform.h"
+#include "Modules/DSingleActionDecide.h"
+#include "Modules/DSingleEmotionReact.h"
+#include "Modules/DSingleReplyReact.h"
 
 using namespace Divisaction;
 
 WorldHolder::WorldHolder() {}
 
-std::shared_ptr<WorldManager> WorldHolder::CreateWorld() {
-  Time::setTimeCalculator(new ChronoTimeCalculator());
+std::shared_ptr<DWorldManager> WorldHolder::CreateWorld() {
+  DTime::setTimeCalculator(std::make_shared<DChronoTimeCalculator>());
 
-  auto worldManager = std::make_shared<WorldManager>();
+  auto worldManager = std::make_shared<DWorldManager>();
   worldManager->description =
       "This scenario contains 2 agents, Bob and Hanna.\n The agents are near a "
       "rope bridge.";
 
-  auto agentBob = std::make_shared<Agent>();
-  auto agentHanna = std::make_shared<Agent>();
+  auto agentBob = std::make_shared<DAgent>();
+  auto agentHanna = std::make_shared<DAgent>();
 
   agentBob->name = std::string("Bob");
   // Each agent has 4 types of modules that determine how the agent works.
   // The Perceive Modules determine how and when the agent perceives the world.
   // The DelayPerceive only tells the agent about new events after a period of
   // time.
-  agentBob->perceiveModules.push_back(std::make_unique<DelayPerceive>());
+  agentBob->perceiveModules.push_back(std::make_unique<DDelayPerceive>());
   // The Interpret Modules should determine what emotions and
   // actions an agent should perform.
   // A React Module is an Interpret Module that determines the emotion
   // an agent is feeling.
   // The SingleEmotionReact selects the first emotion available and executes
   // it once.
-  agentBob->interpretModules.push_back(std::make_unique<SingleEmotionReact>());
+  agentBob->interpretModules.push_back(std::make_unique<DSingleEmotionReact>());
   // A Decision Module is an Interpret Module that determines the action
   // an agent is performing.
   // The SingleActionDecide selects the first action available and executes
   // it once.
-  agentBob->interpretModules.push_back(std::make_unique<SingleActionDecide>());
+  agentBob->interpretModules.push_back(std::make_unique<DSingleActionDecide>());
   // The Perform Modules perform the action and emotions and are also tasked
   // with generating the events the agent will send.
   // The Perform executes the action and emotion previously executed.
-  agentBob->performModules.push_back(std::make_unique<Perform>());
+  agentBob->performModules.push_back(std::make_unique<DPerform>());
 
   // Create an action
   // In this case is a Long Walk over a the bridge
-  std::shared_ptr<Action> crossBridge = std::make_shared<Action>();
+  std::shared_ptr<DAction> crossBridge = std::make_shared<DAction>();
   crossBridge->setName("Long Walk");
 
-  auto anticipation = std::make_shared<TimeProgressiveStage>(
+  auto anticipation = std::make_shared<DTimeProgressiveStage>(
       std::string("starts crossing the bridge"), 4000, 10000);
-  crossBridge->setStage(StageType::ANTICIPATION_INTERRUPTIBLE, anticipation);
+  crossBridge->setStage(DStageType::ANTICIPATION_INTERRUPTIBLE, anticipation);
 
-  auto followThrough = std::make_shared<TimeProgressiveStage>(
+  auto followThrough = std::make_shared<DTimeProgressiveStage>(
       std::string("nears the end of the bridge"), 4000, 7000);
-  crossBridge->setStage(StageType::FOLLOW_THROUGH, followThrough);
+  crossBridge->setStage(DStageType::FOLLOW_THROUGH, followThrough);
 
-  auto cancel = std::make_shared<TimeProgressiveStage>(
+  auto cancel = std::make_shared<DTimeProgressiveStage>(
       std::string(
           "stopped walking abruptly before reaching the end of the bridge"),
       1000, 3000);
-  crossBridge->setStage(StageType::CANCEL, cancel);
+  crossBridge->setStage(DStageType::CANCEL, cancel);
   agentBob->addAvailableAction(crossBridge);
 
   // Create an Emotion
-  std::shared_ptr<Emotion> confidence = std::make_shared<Emotion>(
-      "Confidence", std::make_shared<TimeProgressiveStage>(
+  std::shared_ptr<DEmotion> confidence = std::make_shared<DEmotion>(
+      "Confidence", std::make_shared<DTimeProgressiveStage>(
                         std::string("is confident"), 1500, 2000),
       "winks at ");
   agentBob->addAvailableEmotion(confidence);
 
   agentHanna->name = std::string("Hanna");
-  agentHanna->perceiveModules.push_back(std::make_unique<DelayPerceive>());
+  agentHanna->perceiveModules.push_back(std::make_unique<DDelayPerceive>());
   // The SingleReplyReact selects the first emotion available and executes
   // it when another agent's action changes it's state (when starting for example).
-  agentHanna->interpretModules.push_back(std::make_unique<SingleReplyReact>());
+  agentHanna->interpretModules.push_back(std::make_unique<DSingleReplyReact>());
   // You may have noticed the this agent doesn't have a Decision Module, that is
   // ok, all modules are optional, but of course this means that the agent will
   // not choose an action.
-  agentHanna->performModules.push_back(std::make_unique<Perform>());
+  agentHanna->performModules.push_back(std::make_unique<DPerform>());
 
   // Create an Emotion
-  std::shared_ptr<Emotion> happiness = std::make_shared<Emotion>(
-      "Happiness", std::make_shared<TimeProgressiveStage>(
+  std::shared_ptr<DEmotion> happiness = std::make_shared<DEmotion>(
+      "Happiness", std::make_shared<DTimeProgressiveStage>(
                        std::string("is happy"), 1500, 2000),
       "smiles at ");
   agentHanna->addAvailableEmotion(happiness);

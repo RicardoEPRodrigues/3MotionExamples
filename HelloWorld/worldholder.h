@@ -8,7 +8,7 @@ class WorldHolder
 private:
     WorldHolder();
 public:
-    static std::shared_ptr<class Divisaction::WorldManager> CreateWorld();
+    static std::shared_ptr<Divisaction::DWorldManager> CreateWorld();
 };
 
 #endif // WORLDHOLDER_H

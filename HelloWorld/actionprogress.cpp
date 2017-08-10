@@ -38,8 +38,8 @@ ActionProgress::~ActionProgress() {
     delete opacity;
 }
 
-void ActionProgress::set(shared_ptr<IAgent> &agent, shared_ptr<Stage> stage) {
-    this->stage = std::dynamic_pointer_cast<TimeProgressiveStage>(stage);
+void ActionProgress::set(shared_ptr<DIAgent> &agent, shared_ptr<DStage> stage) {
+    this->stage = std::dynamic_pointer_cast<DTimeProgressiveStage>(stage);
     this->agent = agent;
     if (this->stage) {
         concatDescription(QString(this->stage->getName().c_str()));
@@ -76,7 +76,7 @@ void ActionProgress::update() {
     }
 }
 
-void ActionProgress::addEmotion(std::shared_ptr<Emotion> emotion) {
+void ActionProgress::addEmotion(std::shared_ptr<DEmotion> emotion) {
     if (emotion) {
         concatDescription(QString(emotion->getStage()->getName().c_str()));
     }
@@ -93,9 +93,9 @@ void ActionProgress::concatDescription(QString text) {
     }
 }
 
-void ActionProgress::addReply(shared_ptr<Event> reply) {
-    shared_ptr<EmotionEvent> emotionEvent =
-        dynamic_pointer_cast<EmotionEvent>(reply);
+void ActionProgress::addReply(shared_ptr<DEvent> reply) {
+    shared_ptr<DEmotionEvent> emotionEvent =
+        dynamic_pointer_cast<DEmotionEvent>(reply);
     if (emotionEvent) {
         if (auto sender = emotionEvent->sender.lock()) {
             ActionProgress *actionProgress = new ActionProgress(this);
@@ -106,8 +106,8 @@ void ActionProgress::addReply(shared_ptr<Event> reply) {
     }
 }
 
-void ActionProgress::setReply(std::shared_ptr<IAgent> &agent,
-                              std::shared_ptr<EmotionEvent> reply) {
+void ActionProgress::setReply(std::shared_ptr<DIAgent> &agent,
+                              std::shared_ptr<DEmotionEvent> reply) {
     this->agent = agent;
     if (auto origin = reply->emotion->getReplyAgent().lock()) {
         concatDescription(QString(reply->emotion->getReplyText().c_str()) +

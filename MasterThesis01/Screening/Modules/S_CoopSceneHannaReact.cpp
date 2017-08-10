@@ -12,19 +12,19 @@ Screening::CoopSceneHannaReact::CoopSceneHannaReact() {
 }
 
 void Screening::CoopSceneHannaReact::_execute() {
-  if (std::shared_ptr<TheoryOfMind> mentalState = mentalStateWeak.lock()) {
+  if (std::shared_ptr<DTheoryOfMind> mentalState = mentalStateWeak.lock()) {
     if (!alreadyFelt[0] &&
         mentalState->self.actionInStage(
-            StageType::ANTICIPATION_INTERRUPTIBLE)) {
+            DStageType::ANTICIPATION_INTERRUPTIBLE)) {
       mentalState->self.emotion = mentalState->self.getEmotion("Fear");
       alreadyFelt[0] = true;
     } else if (!alreadyFelt[1] &&
-               mentalState->self.actionInStage(StageType::FOLLOW_THROUGH)) {
+               mentalState->self.actionInStage(DStageType::FOLLOW_THROUGH)) {
       mentalState->self.emotion = mentalState->self.getEmotion("Happiness");
       alreadyFelt[1] = true;
     }
 
-    OtherMentalState* bobMentalRep;
+    DOtherMentalState* bobMentalRep;
     if ((bobMentalRep = mentalState->getOther("Bob"))) {
       if (bobMentalRep->updateAction && bobMentalRep->updateEmotion &&
           bobMentalRep->action && bobMentalRep->emotion) {
@@ -32,11 +32,11 @@ void Screening::CoopSceneHannaReact::_execute() {
         bobMentalRep->updateEmotion = false;
         if (auto origin = bobMentalRep->agent.lock()) {
           wait(4000, [this, bobMentalRep]() {
-            if (std::shared_ptr<TheoryOfMind> innerMentalState =
+            if (std::shared_ptr<DTheoryOfMind> innerMentalState =
                     mentalStateWeak.lock()) {
               if (auto innerOrigin = bobMentalRep->agent.lock()) {
-                if (bobMentalRep->state ==
-                    StageType::ANTICIPATION_INTERRUPTIBLE) {
+                if (bobMentalRep->stage ==
+                    DStageType::ANTICIPATION_INTERRUPTIBLE) {
                   if ((innerMentalState->self.emotion =
                            innerMentalState->self.getEmotion("Confidence"))) {
                     innerMentalState->self.emotion->replyToAgent(innerOrigin);
@@ -46,7 +46,7 @@ void Screening::CoopSceneHannaReact::_execute() {
             }
           });
 
-          if (bobMentalRep->state == StageType::FOLLOW_THROUGH) {
+          if (bobMentalRep->stage == DStageType::FOLLOW_THROUGH) {
             if ((mentalState->self.emotion =
                      mentalState->self.getEmotion("Relief"))) {
               mentalState->self.emotion->replyToAgent(origin);

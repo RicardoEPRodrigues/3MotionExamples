@@ -6,34 +6,34 @@
 #ifndef EMOTIONS_H
 #define EMOTIONS_H
 
-#include "Emotion.h"
+#include "DEmotion.h"
 
-class Confidence : public Divisaction::Emotion {
+class Confidence : public Divisaction::DEmotion {
  public:
   Confidence();
 };
 
-class Fear : public Divisaction::Emotion {
+class Fear : public Divisaction::DEmotion {
  public:
   Fear();
 };
 
-class Happiness : public Divisaction::Emotion {
+class Happiness : public Divisaction::DEmotion {
  public:
   Happiness();
 };
 
-class Relief : public Divisaction::Emotion {
+class Relief : public Divisaction::DEmotion {
  public:
   Relief();
 };
 
-class Apprehension : public Divisaction::Emotion {
+class Apprehension : public Divisaction::DEmotion {
  public:
   Apprehension();
 };
 
-class Sadness : public Divisaction::Emotion {
+class Sadness : public Divisaction::DEmotion {
  public:
   Sadness();
 };
