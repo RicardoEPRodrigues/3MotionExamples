@@ -8,7 +8,7 @@
 #include <QApplication>
 #include <QFile>
 
-using namespace Divisaction;
+using namespace ThreeMotion;
 
 void setStyle(QApplication& a) {
   QFile file(":/style.css");

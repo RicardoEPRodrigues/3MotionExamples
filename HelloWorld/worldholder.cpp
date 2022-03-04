@@ -1,6 +1,6 @@
 #include "worldholder.h"
 
-#include "DivisactionExtras.h"
+#include "ThreeMotion.h"
 
 #include "Modules/DDelayPerceive.h"
 #include "Modules/DPerform.h"
@@ -8,20 +8,23 @@
 #include "Modules/DSingleEmotionReact.h"
 #include "Modules/DSingleReplyReact.h"
 
-using namespace Divisaction;
+#include "Extra/TChronoTimeCalculator.h"
+#include "Extra/TTimeProgressiveStage.h"
+
+using namespace ThreeMotion;
 
 WorldHolder::WorldHolder() {}
 
-std::shared_ptr<DWorldManager> WorldHolder::CreateWorld() {
-  DTime::setTimeCalculator(std::make_shared<DChronoTimeCalculator>());
+std::shared_ptr<TWorldManager> WorldHolder::CreateWorld() {
+  TTime::SetTimeCalculator(std::make_shared<TChronoTimeCalculator>());
 
-  auto worldManager = std::make_shared<DWorldManager>();
+  auto worldManager = std::make_shared<TWorldManager>();
   worldManager->description =
       "This scenario contains 2 agents, Bob and Hanna.\n The agents are near a "
       "rope bridge.";
 
-  auto agentBob = std::make_shared<DAgent>();
-  auto agentHanna = std::make_shared<DAgent>();
+  auto agentBob = std::make_shared<TAgent>();
+  auto agentHanna = std::make_shared<TAgent>();
 
   agentBob->name = std::string("Bob");
   // Each agent has 4 types of modules that determine how the agent works.
@@ -48,30 +51,30 @@ std::shared_ptr<DWorldManager> WorldHolder::CreateWorld() {
 
   // Create an action
   // In this case is a Long Walk over a the bridge
-  std::shared_ptr<DAction> crossBridge = std::make_shared<DAction>();
+  std::shared_ptr<TAction> crossBridge = std::make_shared<TAction>();
   crossBridge->setName("Long Walk");
 
-  auto anticipation = std::make_shared<DTimeProgressiveStage>(
+  auto anticipation = std::make_shared<TTimeProgressiveStage>(
       std::string("starts crossing the bridge"), 4000, 10000);
-  crossBridge->setStage(DStageType::ANTICIPATION_INTERRUPTIBLE, anticipation);
+  crossBridge->SetStage(TStageType::ANTICIPATION_INTERRUPTIBLE, anticipation);
 
-  auto followThrough = std::make_shared<DTimeProgressiveStage>(
+  auto followThrough = std::make_shared<TTimeProgressiveStage>(
       std::string("nears the end of the bridge"), 4000, 7000);
-  crossBridge->setStage(DStageType::FOLLOW_THROUGH, followThrough);
+  crossBridge->SetStage(TStageType::FOLLOW_THROUGH, followThrough);
 
-  auto cancel = std::make_shared<DTimeProgressiveStage>(
+  auto cancel = std::make_shared<TTimeProgressiveStage>(
       std::string(
           "stopped walking abruptly before reaching the end of the bridge"),
       1000, 3000);
-  crossBridge->setStage(DStageType::CANCEL, cancel);
-  agentBob->addAvailableAction(crossBridge);
+  crossBridge->SetStage(TStageType::CANCEL, cancel);
+  agentBob->AddAvailableAction(crossBridge);
 
   // Create an Emotion
-  std::shared_ptr<DEmotion> confidence = std::make_shared<DEmotion>(
-      "Confidence", std::make_shared<DTimeProgressiveStage>(
+  std::shared_ptr<TEmotion> confidence = std::make_shared<TEmotion>(
+      "Confidence", std::make_shared<TTimeProgressiveStage>(
                         std::string("is confident"), 1500, 2000),
       "winks at ");
-  agentBob->addAvailableEmotion(confidence);
+  agentBob->AddAvailableEmotion(confidence);
 
   agentHanna->name = std::string("Hanna");
   agentHanna->perceiveModules.push_back(std::make_unique<DDelayPerceive>());
@@ -84,16 +87,16 @@ std::shared_ptr<DWorldManager> WorldHolder::CreateWorld() {
   agentHanna->performModules.push_back(std::make_unique<DPerform>());
 
   // Create an Emotion
-  std::shared_ptr<DEmotion> happiness = std::make_shared<DEmotion>(
-      "Happiness", std::make_shared<DTimeProgressiveStage>(
+  std::shared_ptr<TEmotion> happiness = std::make_shared<TEmotion>(
+      "Happiness", std::make_shared<TTimeProgressiveStage>(
                        std::string("is happy"), 1500, 2000),
       "smiles at ");
-  agentHanna->addAvailableEmotion(happiness);
+  agentHanna->AddAvailableEmotion(happiness);
 
   // Every agent needs to be initialized, this is because the mental model needs
   // to be passed to each sub component.
-  agentBob->initialize();
-  agentHanna->initialize();
+  agentBob->Initialize();
+  agentHanna->Initialize();
 
   worldManager->agents.push_back(agentBob);
   worldManager->agents.push_back(agentHanna);

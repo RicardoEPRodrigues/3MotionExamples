@@ -6,7 +6,7 @@
 #include "ui_actionprogress.h"
 
 using namespace std;
-using namespace Divisaction;
+using namespace ThreeMotion;
 
 ActionProgress::ActionProgress(QWidget *parent)
     : QWidget(parent), ui(new Ui::ActionProgress) {
@@ -38,18 +38,18 @@ ActionProgress::~ActionProgress() {
     delete opacity;
 }
 
-void ActionProgress::set(shared_ptr<DIAgent> &agent, shared_ptr<DStage> stage) {
-    this->stage = std::dynamic_pointer_cast<DTimeProgressiveStage>(stage);
+void ActionProgress::set(shared_ptr<TIAgent> &agent, shared_ptr<TStage> stage) {
+    this->stage = std::dynamic_pointer_cast<TTimeProgressiveStage>(stage);
     this->agent = agent;
     if (this->stage) {
         concatDescription(QString(this->stage->getName().c_str()));
-        ui->progressBar->setValue(floor(this->stage->getProgress() * 100));
+        ui->progressBar->setValue(floor(this->stage->GetProgress() * 100));
     }
 }
 
 void ActionProgress::update() {
     if (this->stage) {
-        int progress = int(this->stage->getProgress() * 100);
+        int progress = int(this->stage->GetProgress() * 100);
         if (progress > ui->progressBar->value()) {
             ui->progressBar->setValue(progress);
             if (ui->progressBar->property("disabled") == true) {
@@ -76,9 +76,9 @@ void ActionProgress::update() {
     }
 }
 
-void ActionProgress::addEmotion(std::shared_ptr<DEmotion> emotion) {
+void ActionProgress::addEmotion(std::shared_ptr<TEmotion> emotion) {
     if (emotion) {
-        concatDescription(QString(emotion->getStage()->getName().c_str()));
+        concatDescription(QString(emotion->stage->getName().c_str()));
     }
 }
 
@@ -93,9 +93,9 @@ void ActionProgress::concatDescription(QString text) {
     }
 }
 
-void ActionProgress::addReply(shared_ptr<DEvent> reply) {
-    shared_ptr<DEmotionEvent> emotionEvent =
-        dynamic_pointer_cast<DEmotionEvent>(reply);
+void ActionProgress::addReply(shared_ptr<TEvent> reply) {
+    shared_ptr<TEmotionEvent> emotionEvent =
+        dynamic_pointer_cast<TEmotionEvent>(reply);
     if (emotionEvent) {
         if (auto sender = emotionEvent->sender.lock()) {
             ActionProgress *actionProgress = new ActionProgress(this);
@@ -106,12 +106,12 @@ void ActionProgress::addReply(shared_ptr<DEvent> reply) {
     }
 }
 
-void ActionProgress::setReply(std::shared_ptr<DIAgent> &agent,
-                              std::shared_ptr<DEmotionEvent> reply) {
+void ActionProgress::setReply(std::shared_ptr<TIAgent> &agent,
+                              std::shared_ptr<TEmotionEvent> reply) {
     this->agent = agent;
-    if (auto origin = reply->emotion->getReplyAgent().lock()) {
-        concatDescription(QString(reply->emotion->getReplyText().c_str()) +
+    if (auto origin = reply->emotion->replyToAgent.lock()) {
+        concatDescription(QString(reply->emotion->replyText.c_str()) +
                           QString(origin->name.c_str()));
     }
-    this->set(agent, reply->emotion->getStage());
+    this->set(agent, reply->emotion->stage);
 }

@@ -1,14 +1,14 @@
 #ifndef WORLDHOLDER_H
 #define WORLDHOLDER_H
 
-#include "Divisaction.h"
+#include "ThreeMotion.h"
 
 class WorldHolder
 {
 private:
     WorldHolder();
 public:
-    static std::shared_ptr<Divisaction::DWorldManager> CreateWorld();
+    static std::shared_ptr<ThreeMotion::TWorldManager> CreateWorld();
 };
 
 #endif // WORLDHOLDER_H

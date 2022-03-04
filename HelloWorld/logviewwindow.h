@@ -17,7 +17,7 @@
 
 #include "actionprogress.h"
 
-#include "Divisaction.h"
+#include "ThreeMotion.h"
 
 namespace Ui {
 class LogViewWindow;
@@ -30,7 +30,7 @@ class LogViewWindow : public QMainWindow {
   explicit LogViewWindow(QWidget* parent = 0);
   ~LogViewWindow();
 
-  void init(std::shared_ptr<Divisaction::DWorldManager> worldManager);
+  void init(std::shared_ptr<ThreeMotion::TWorldManager> worldManager);
 
  private:
   Ui::LogViewWindow* ui;
@@ -38,7 +38,7 @@ class LogViewWindow : public QMainWindow {
 
   std::vector<ActionProgress*> actionsProgress;
 
-  std::shared_ptr<Divisaction::DWorldManager> worldManager;
+  std::shared_ptr<ThreeMotion::TWorldManager> worldManager;
 
   QTimer* updateTimer;
 

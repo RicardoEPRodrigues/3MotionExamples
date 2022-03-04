@@ -36,10 +36,10 @@ qmakeforce.depends = FORCE
 PRE_TARGETDEPS += $$qmakeforce.target
 QMAKE_EXTRA_TARGETS += qmakeforce
 
-unix:!macx: LIBS += -L$$PWD/../../Divisaction/cmake-build-debug/ -lDivisaction
+unix:!macx: LIBS += -L$$PWD/../../3Motion/cmake-build-debug/ -lThreeMotion
 
-INCLUDEPATH += $$PWD/../../Divisaction/
-DEPENDPATH += $$PWD/../../Divisaction/
+INCLUDEPATH += $$PWD/../../3Motion/
+DEPENDPATH += $$PWD/../../3Motion/
 
 RESOURCES += \
     style.qrc

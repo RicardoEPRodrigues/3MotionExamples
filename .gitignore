@@ -45,3 +45,6 @@ cmake-build-*
 
 # Doxygen
 doc/
+
+build-HelloWorld-*/
+build-MasterThesis01-*/

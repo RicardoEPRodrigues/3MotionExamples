@@ -7,7 +7,7 @@
 
 #include "worldholder.h"
 
-using namespace Divisaction;
+using namespace ThreeMotion;
 using namespace std;
 
 LogViewWindow::LogViewWindow(QWidget *parent)
@@ -25,7 +25,7 @@ LogViewWindow::LogViewWindow(QWidget *parent)
 
   updateTimer = new QTimer(this);
   connect(updateTimer, SIGNAL(timeout()), this, SLOT(update()));
-  DTime::update();
+  TTime::Update();
   updateTimer->start(20);
 }
 
@@ -35,7 +35,7 @@ LogViewWindow::~LogViewWindow() {
 }
 
 void LogViewWindow::init(
-    std::shared_ptr<Divisaction::DWorldManager> worldManager) {
+    std::shared_ptr<ThreeMotion::TWorldManager> worldManager) {
   QtHelper::clearLayout(ui->ActionStackLayout);
   this->actionsProgress.clear();
   this->worldManager = worldManager;
@@ -50,16 +50,16 @@ void LogViewWindow::init(
 }
 
 void LogViewWindow::update() {
-  DTime::update();
+  TTime::Update();
   if (worldManager && !paused) {
-    worldManager->update();
+    worldManager->Update();
 
-    for (shared_ptr<DEvent> event : worldManager->events) {
-      shared_ptr<DEmotionEvent> emotionEvent =
-          dynamic_pointer_cast<DEmotionEvent>(event);
+    for (const shared_ptr<TEvent> &event : worldManager->events) {
+      shared_ptr<TEmotionEvent> emotionEvent =
+          dynamic_pointer_cast<TEmotionEvent>(event);
       if (emotionEvent) {
-        shared_ptr<DEmotion> emotion = emotionEvent->emotion;
-        if (shared_ptr<DIAgent> replyAgent = emotion->getReplyAgent().lock()) {
+        shared_ptr<TEmotion> emotion = emotionEvent->emotion;
+        if (shared_ptr<TIAgent> replyAgent = emotion->replyToAgent.lock()) {
           for (std::vector<ActionProgress *>::reverse_iterator progress =
                    actionsProgress.rbegin();
                progress != actionsProgress.rend(); progress++) {
@@ -69,7 +69,7 @@ void LogViewWindow::update() {
             }
           }
         } else {
-          if (shared_ptr<DIAgent> sender = emotionEvent->sender.lock()) {
+          if (shared_ptr<TIAgent> sender = emotionEvent->sender.lock()) {
             for (std::vector<ActionProgress *>::reverse_iterator progress =
                      actionsProgress.rbegin();
                  progress != actionsProgress.rend(); progress++) {
@@ -81,11 +81,11 @@ void LogViewWindow::update() {
           }
         }
       } else {
-        shared_ptr<DActionEvent> actionEvent =
-            dynamic_pointer_cast<DActionEvent>(event);
+        shared_ptr<TActionEvent> actionEvent =
+            dynamic_pointer_cast<TActionEvent>(event);
         if (actionEvent) {
           if (auto iagent = actionEvent->sender.lock()) {
-            auto stage = actionEvent->action->getCurrentStage();
+            auto stage = actionEvent->action->GetCurrentStage();
             ActionProgress *actionProgress = new ActionProgress();
             actionProgress->set(iagent, stage);
             ui->ActionStackLayout->addWidget(actionProgress);
