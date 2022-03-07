@@ -1,14 +1,14 @@
 /*
- * File CoopSceneHannaReact.h in project Divisaction
+ * File CoopSceneHannaReact.h in project ThreeMotion
  *
  * Copyright (C) Ricardo Rodrigues 2016 - All Rights Reserved
  */
 #ifndef COOPSCENEHANNAREACT_H
 #define COOPSCENEHANNAREACT_H
 
-#include "DModule.h"
+#include "TModule.h"
 
-class CoopSceneHannaReact : public Divisaction::InterpretModule {
+class CoopSceneHannaReact : public ThreeMotion::InterpretModule {
  public:
   CoopSceneHannaReact();
 

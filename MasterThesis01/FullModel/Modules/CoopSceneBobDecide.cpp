@@ -1,11 +1,11 @@
 /*
- * File CoopSceneBobDecide.cpp in project Divisaction
+ * File CoopSceneBobDecide.cpp in project ThreeMotion
  *
  * Copyright (C) Ricardo Rodrigues 2016 - All Rights Reserved
  */
 #include "CoopSceneBobDecide.h"
 
-using namespace Divisaction;
+using namespace ThreeMotion;
 
 CoopSceneBobDecide::CoopSceneBobDecide()
     : alreadyActed(false), timer(nullptr) {}
@@ -13,17 +13,17 @@ CoopSceneBobDecide::CoopSceneBobDecide()
 CoopSceneBobDecide::~CoopSceneBobDecide() {}
 
 void CoopSceneBobDecide::_execute() {
-  if (auto mentalState = mentalStateWeak.lock()) {
+  if (auto mentalState = theoryOfMindWeak.lock()) {
     if (!alreadyActed && !mentalState->self.action &&
-        mentalState->self.countActions() > 0) {
+        mentalState->self.CountActions() > 0) {
       alreadyActed = true;
       // Start walking
-      mentalState->self.action = mentalState->self.getAction("Long Walk");
+      mentalState->self.action = mentalState->self.GetAction("Long Walk");
       // After a while if Hanna is not following, cancel action.
-      timer = ifWait(
+      timer = IfWait(
           8000,
           [this]() {
-            //                    if (auto mentalState = mentalStateWeak.lock())
+            //                    if (auto mentalState = theoryOfMindWeak.lock())
             //                    {
             //                        if (mentalState->self.action) {
             //                            mentalState->self.action->cancel();
@@ -31,7 +31,7 @@ void CoopSceneBobDecide::_execute() {
             //                    }
           },
           [this](milliseconds) {
-            if (auto innerMentalState = mentalStateWeak.lock()) {
+            if (auto innerMentalState = theoryOfMindWeak.lock()) {
               // If Hanna replied with fear to his walking, then cancel action
               for (auto replyIter = innerMentalState->self.replies.begin();
                    replyIter != innerMentalState->self.replies.end();
@@ -40,7 +40,7 @@ void CoopSceneBobDecide::_execute() {
                   if (sender->name.compare("Hanna") == 0 &&
                       (*replyIter)->emotion->getName().compare("Fear") == 0) {
                     if (innerMentalState->self.action) {
-                      innerMentalState->self.action->cancel();
+                      innerMentalState->self.action->Cancel();
                     }
                     return true;
                   }
@@ -52,9 +52,9 @@ void CoopSceneBobDecide::_execute() {
               //                        OtherMentalRepresentation*
               //                        hannaMentalRep;
               //                        if ((hannaMentalRep =
-              //                        mentalState->getOther("Hanna"))) {
+              //                        mentalState->GetOther("Hanna"))) {
               //                            return
-              //                            hannaMentalRep->actionHasName("Follow");
+              //                            hannaMentalRep->ActionHasName("Follow");
               //                        }
             }
             return true;

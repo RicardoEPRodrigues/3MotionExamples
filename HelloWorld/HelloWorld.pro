@@ -14,21 +14,21 @@ TARGET = HelloWorld
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-    actionprogress.cpp \
-    qthelper.cpp \
-    logviewwindow.cpp \
-    worldholder.cpp
+SOURCES += source/main.cpp\
+    source/worldholder.cpp \
+    source/logviewwindow.cpp \
+    ../shared/source/actionprogress.cpp \
+    ../shared/source/qthelper.cpp \
 
 HEADERS  += \
-    actionprogress.h \
-    qthelper.h \
-    logviewwindow.h \
-    worldholder.h
+    source/worldholder.h \
+    source/logviewwindow.h \
+    ../shared/source/actionprogress.h \
+    ../shared/source/qthelper.h \
 
 FORMS    += \
-    actionprogress.ui \
-    logviewwindow.ui \
+    ui/logviewwindow.ui \
+    ../shared/ui/actionprogress.ui \
 
 qmakeforce.target = dummy
 qmakeforce.commands = rm -f Makefile ##to force rerun of qmake
@@ -42,7 +42,7 @@ INCLUDEPATH += $$PWD/../../3Motion/
 DEPENDPATH += $$PWD/../../3Motion/
 
 RESOURCES += \
-    style.qrc
+    ../shared/resources/style.qrc
 
 DISTFILES += \
-    style.css
+    ../shared/resources/style.css

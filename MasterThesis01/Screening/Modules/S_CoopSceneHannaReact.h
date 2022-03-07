@@ -1,15 +1,15 @@
 /*
- * File CoopSceneHannaReact.h in project Divisaction
+ * File CoopSceneHannaReact.h in project ThreeMotion
  *
  * Copyright (C) Ricardo Rodrigues 2016 - All Rights Reserved
  */
 #ifndef SCREENING_COOPSCENEHANNAREACT_H
 #define SCREENING_COOPSCENEHANNAREACT_H
 
-#include "DModule.h"
+#include "TModule.h"
 
 namespace Screening {
-class CoopSceneHannaReact : public Divisaction::InterpretModule {
+class CoopSceneHannaReact : public ThreeMotion::InterpretModule {
  public:
   CoopSceneHannaReact();
 

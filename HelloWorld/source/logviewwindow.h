@@ -2,8 +2,8 @@
  * Copyright (C) ricardo 2016 - All Rights Reserved
  */
 
-#ifndef DIVISACTIONWINDOW_H
-#define DIVISACTIONWINDOW_H
+#ifndef ThreeMotionWINDOW_H
+#define ThreeMotionWINDOW_H
 
 #include <QLabel>
 #include <QMainWindow>
@@ -15,7 +15,7 @@
 #include <memory>
 #include <vector>
 
-#include "actionprogress.h"
+#include "../../shared/source/actionprogress.h"
 
 #include "ThreeMotion.h"
 
@@ -53,4 +53,4 @@ class LogViewWindow : public QMainWindow {
   void on_actionRestart_triggered();
 };
 
-#endif  // DIVISACTIONWINDOW_H
+#endif  // ThreeMotionWINDOW_H

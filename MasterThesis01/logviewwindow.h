@@ -15,11 +15,11 @@
 #include <memory>
 #include <vector>
 
-#include "actionprogress.h"
+#include "../shared/source/actionprogress.h"
 
 #include "worldholder.h"
 
-#include "Divisaction.h"
+#include "ThreeMotion.h"
 
 namespace Ui {
 class LogViewWindow;
@@ -42,7 +42,7 @@ private:
 
   std::vector<ActionProgress *> actionsProgress;
 
-  std::shared_ptr<Divisaction::DWorldManager> worldManager;
+  std::shared_ptr<ThreeMotion::TWorldManager> worldManager;
 
   QTimer *updateTimer;
 

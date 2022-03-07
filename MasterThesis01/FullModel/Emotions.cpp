@@ -1,39 +1,39 @@
 /*
- * File Emotions.cpp in project Divisaction
+ * File Emotions.cpp in project ThreeMotion
  *
  * Copyright (C) Ricardo Rodrigues 2016 - All Rights Reserved
  */
 #include "Emotions.h"
-#include "Extra/DTimeProgressiveStage.h"
+#include "Extra/TTimeProgressiveStage.h"
 
-using namespace Divisaction;
+using namespace ThreeMotion;
 
 Confidence::Confidence()
-    : DEmotion("Confidence", std::make_shared<DTimeProgressiveStage>(
+    : TEmotion("Confidence", std::make_shared<TTimeProgressiveStage>(
                                 std::string("is confident"), 1500, 2000),
               "winks at ") {}
 
 Fear::Fear()
-    : DEmotion("Fear", std::make_shared<DTimeProgressiveStage>(
+    : TEmotion("Fear", std::make_shared<TTimeProgressiveStage>(
                           std::string("is afraid"), 1500, 2000),
               "gives a terrifying look at ") {}
 
 Happiness::Happiness()
-    : DEmotion("Happiness", std::make_shared<DTimeProgressiveStage>(
+    : TEmotion("Happiness", std::make_shared<TTimeProgressiveStage>(
                                std::string("is happy"), 1500, 2000),
               "smiles at ") {}
 
 Relief::Relief()
-    : DEmotion("Relief", std::make_shared<DTimeProgressiveStage>(
+    : TEmotion("Relief", std::make_shared<TTimeProgressiveStage>(
                             std::string("is relieved"), 1500, 2000),
               "breaths out and looks at ") {}
 
 Apprehension::Apprehension()
-    : DEmotion("Apprehension", std::make_shared<DTimeProgressiveStage>(
+    : TEmotion("Apprehension", std::make_shared<TTimeProgressiveStage>(
                                   std::string("is apprehensive"), 1500, 2000),
               "feels somethings is wrong and fears for ") {}
 
 Sadness::Sadness()
-    : DEmotion("Sadness", std::make_shared<DTimeProgressiveStage>(
+    : TEmotion("Sadness", std::make_shared<TTimeProgressiveStage>(
                              std::string("is sad"), 1500, 2000),
               "feels gloomy and discouraged, looking at ") {}

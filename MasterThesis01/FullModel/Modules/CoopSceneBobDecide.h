@@ -1,14 +1,14 @@
 /*
- * File CoopSceneBobDecide.h in project Divisaction
+ * File CoopSceneBobDecide.h in project ThreeMotion
  *
  * Copyright (C) Ricardo Rodrigues 2016 - All Rights Reserved
  */
 #ifndef COOPSCENEBOBDECIDE_H
 #define COOPSCENEBOBDECIDE_H
 
-#include "DModule.h"
+#include "TModule.h"
 
-class CoopSceneBobDecide : public Divisaction::InterpretModule {
+class CoopSceneBobDecide : public ThreeMotion::InterpretModule {
  public:
   CoopSceneBobDecide();
 
@@ -19,7 +19,7 @@ class CoopSceneBobDecide : public Divisaction::InterpretModule {
 
  private:
   bool alreadyActed;
-  std::shared_ptr<Divisaction::DTimer> timer;
+  std::shared_ptr<ThreeMotion::TTimer> timer;
 };
 
 #endif  // COOPSCENEBOBDECIDE_H

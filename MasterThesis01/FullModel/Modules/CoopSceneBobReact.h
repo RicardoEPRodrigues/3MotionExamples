@@ -1,14 +1,14 @@
 /*
- * File CoopSceneBobReact.h in project Divisaction
+ * File CoopSceneBobReact.h in project ThreeMotion
  *
  * Copyright (C) Ricardo Rodrigues 2016 - All Rights Reserved
  */
 #ifndef COOPSCENEBOBREACT_H
 #define COOPSCENEBOBREACT_H
 
-#include "DModule.h"
+#include "TModule.h"
 
-class CoopSceneBobReact : public Divisaction::InterpretModule {
+class CoopSceneBobReact : public ThreeMotion::InterpretModule {
  public:
   CoopSceneBobReact();
 

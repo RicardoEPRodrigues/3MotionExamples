@@ -93,7 +93,7 @@ std::shared_ptr<TWorldManager> WorldHolder::CreateWorld() {
       "smiles at ");
   agentHanna->AddAvailableEmotion(happiness);
 
-  // Every agent needs to be initialized, this is because the mental model needs
+  // Every agent needs to be Initialized, this is because the mental model needs
   // to be passed to each sub component.
   agentBob->Initialize();
   agentHanna->Initialize();

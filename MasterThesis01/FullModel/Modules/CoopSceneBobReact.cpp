@@ -1,50 +1,49 @@
 /*
- * File CoopSceneBobReact.cpp in project Divisaction
+ * File CoopSceneBobReact.cpp in project ThreeMotion
  *
  * Copyright (C) Ricardo Rodrigues 2016 - All Rights Reserved
  */
 #include "CoopSceneBobReact.h"
 
-using namespace Divisaction;
+using namespace ThreeMotion;
 
 CoopSceneBobReact::CoopSceneBobReact() { alreadyFelt = std::vector<bool>(10); }
 
 void CoopSceneBobReact::_execute() {
-  if (auto mentalState = mentalStateWeak.lock()) {
+  if (auto mentalState = theoryOfMindWeak.lock()) {
     if (!alreadyFelt[0]) {
-      mentalState->self.emotion = mentalState->self.getEmotion("Confidence");
+      mentalState->self.emotion = mentalState->self.GetEmotion("Confidence");
       alreadyFelt[0] = true;
     }
-    if (!alreadyFelt[1] && mentalState->self.actionHasName("Long Walk") &&
-        mentalState->self.actionInStage(DStageType::FOLLOW_THROUGH)) {
-      mentalState->self.emotion = mentalState->self.getEmotion("Happiness");
+    if (!alreadyFelt[1] && mentalState->self.ActionHasName("Long Walk") &&
+        mentalState->self.IsActionInStage(TStageType::FOLLOW_THROUGH)) {
+      mentalState->self.emotion = mentalState->self.GetEmotion("Happiness");
       alreadyFelt[1] = true;
     }
-    if (!alreadyFelt[2] && mentalState->self.actionHasName("Long Walk") &&
-        mentalState->self.actionInStage(DStageType::CANCEL)) {
-      mentalState->self.emotion = mentalState->self.getEmotion("Sadness");
+    if (!alreadyFelt[2] && mentalState->self.ActionHasName("Long Walk") &&
+        mentalState->self.IsActionInStage(TStageType::CANCEL)) {
+      mentalState->self.emotion = mentalState->self.GetEmotion("Sadness");
       alreadyFelt[2] = true;
     }
 
-    DOtherMentalState* hannaMentalRep;
-    if ((hannaMentalRep = mentalState->getOther("Hanna"))) {
-      if (hannaMentalRep->updateAction && hannaMentalRep->updateEmotion &&
+    TOtherMentalState* hannaMentalRep;
+    if ((hannaMentalRep = mentalState->GetOther("Hanna"))) {
+      if (hannaMentalRep->UpdateAction && hannaMentalRep->UpdateEmotion &&
           hannaMentalRep->action && hannaMentalRep->emotion) {
-        hannaMentalRep->updateAction = false;
-        hannaMentalRep->updateEmotion = false;
+        hannaMentalRep->UpdateAction = false;
+        hannaMentalRep->UpdateEmotion = false;
         if (auto self = mentalState->self.agent.lock()) {
           if (auto origin = hannaMentalRep->agent.lock()) {
             std::string emotionName;
             if (hannaMentalRep->stage ==
-                DStageType::ANTICIPATION_INTERRUPTIBLE) {
+                TStageType::ANTICIPATION_INTERRUPTIBLE) {
               emotionName = "Confidence";
             } else {
               emotionName = "Happiness";
             }
 
-            mentalState->self.emotion =
-                mentalState->self.getEmotion(emotionName);
-            mentalState->self.emotion->replyToAgent(origin);
+            mentalState->self.emotion = mentalState->self.GetEmotion(emotionName);
+            mentalState->self.emotion->replyToAgent = origin;
           }
         }
       }

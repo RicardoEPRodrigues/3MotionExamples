@@ -1,55 +1,54 @@
 /*
- * File CoopSceneHannaReact.cpp in project Divisaction
+ * File CoopSceneHannaReact.cpp in project ThreeMotion
  *
  * Copyright (C) Ricardo Rodrigues 2016 - All Rights Reserved
  */
 #include "S_CoopSceneHannaReact.h"
 
-using namespace Divisaction;
+using namespace ThreeMotion;
 
 Screening::CoopSceneHannaReact::CoopSceneHannaReact() {
   alreadyFelt = std::vector<bool>(10);
 }
 
 void Screening::CoopSceneHannaReact::_execute() {
-  if (std::shared_ptr<DTheoryOfMind> mentalState = mentalStateWeak.lock()) {
+  if (std::shared_ptr<TTheoryOfMind> mentalState = theoryOfMindWeak.lock()) {
     if (!alreadyFelt[0] &&
-        mentalState->self.actionInStage(
-            DStageType::ANTICIPATION_INTERRUPTIBLE)) {
-      mentalState->self.emotion = mentalState->self.getEmotion("Fear");
+        mentalState->self.IsActionInStage(TStageType::ANTICIPATION_INTERRUPTIBLE)) {
+      mentalState->self.emotion = mentalState->self.GetEmotion("Fear");
       alreadyFelt[0] = true;
     } else if (!alreadyFelt[1] &&
-               mentalState->self.actionInStage(DStageType::FOLLOW_THROUGH)) {
-      mentalState->self.emotion = mentalState->self.getEmotion("Happiness");
+               mentalState->self.IsActionInStage(TStageType::FOLLOW_THROUGH)) {
+      mentalState->self.emotion = mentalState->self.GetEmotion("Happiness");
       alreadyFelt[1] = true;
     }
 
-    DOtherMentalState* bobMentalRep;
-    if ((bobMentalRep = mentalState->getOther("Bob"))) {
-      if (bobMentalRep->updateAction && bobMentalRep->updateEmotion &&
+    TOtherMentalState* bobMentalRep;
+    if ((bobMentalRep = mentalState->GetOther("Bob"))) {
+      if (bobMentalRep->UpdateAction && bobMentalRep->UpdateEmotion &&
           bobMentalRep->action && bobMentalRep->emotion) {
-        bobMentalRep->updateAction = false;
-        bobMentalRep->updateEmotion = false;
+        bobMentalRep->UpdateAction = false;
+        bobMentalRep->UpdateEmotion = false;
         if (auto origin = bobMentalRep->agent.lock()) {
-          wait(4000, [this, bobMentalRep]() {
-            if (std::shared_ptr<DTheoryOfMind> innerMentalState =
-                    mentalStateWeak.lock()) {
+          Wait(4000, [this, bobMentalRep]() {
+            if (std::shared_ptr<TTheoryOfMind> innerMentalState =
+                    theoryOfMindWeak.lock()) {
               if (auto innerOrigin = bobMentalRep->agent.lock()) {
                 if (bobMentalRep->stage ==
-                    DStageType::ANTICIPATION_INTERRUPTIBLE) {
+                    TStageType::ANTICIPATION_INTERRUPTIBLE) {
                   if ((innerMentalState->self.emotion =
-                           innerMentalState->self.getEmotion("Confidence"))) {
-                    innerMentalState->self.emotion->replyToAgent(innerOrigin);
+                           innerMentalState->self.GetEmotion("Confidence"))) {
+                    innerMentalState->self.emotion->replyToAgent = innerOrigin;
                   }
                 }
               }
             }
           });
 
-          if (bobMentalRep->stage == DStageType::FOLLOW_THROUGH) {
+          if (bobMentalRep->stage == TStageType::FOLLOW_THROUGH) {
             if ((mentalState->self.emotion =
-                     mentalState->self.getEmotion("Relief"))) {
-              mentalState->self.emotion->replyToAgent(origin);
+                     mentalState->self.GetEmotion("Relief"))) {
+              mentalState->self.emotion->replyToAgent = origin;
             }
           }
         }

@@ -1,15 +1,15 @@
 /*
- * File CoopSceneBobReact.h in project Divisaction
+ * File CoopSceneBobReact.h in project ThreeMotion
  *
  * Copyright (C) Ricardo Rodrigues 2016 - All Rights Reserved
  */
 #ifndef NOANTICIPATION_COOPSCENEBOBREACT_H
 #define NOANTICIPATION_COOPSCENEBOBREACT_H
 
-#include "DModule.h"
+#include "TModule.h"
 
 namespace NoAnticipation {
-class CoopSceneBobReact : public Divisaction::InterpretModule {
+class CoopSceneBobReact : public ThreeMotion::InterpretModule {
  public:
   CoopSceneBobReact();
 

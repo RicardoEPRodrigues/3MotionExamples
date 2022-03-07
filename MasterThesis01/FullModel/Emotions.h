@@ -1,39 +1,39 @@
 /*
- * File Emotions.h in project Divisaction
+ * File Emotions.h in project ThreeMotion
  *
  * Copyright (C) Ricardo Rodrigues 2016 - All Rights Reserved
  */
 #ifndef EMOTIONS_H
 #define EMOTIONS_H
 
-#include "DEmotion.h"
+#include "TEmotion.h"
 
-class Confidence : public Divisaction::DEmotion {
+class Confidence : public ThreeMotion::TEmotion {
  public:
   Confidence();
 };
 
-class Fear : public Divisaction::DEmotion {
+class Fear : public ThreeMotion::TEmotion {
  public:
   Fear();
 };
 
-class Happiness : public Divisaction::DEmotion {
+class Happiness : public ThreeMotion::TEmotion {
  public:
   Happiness();
 };
 
-class Relief : public Divisaction::DEmotion {
+class Relief : public ThreeMotion::TEmotion {
  public:
   Relief();
 };
 
-class Apprehension : public Divisaction::DEmotion {
+class Apprehension : public ThreeMotion::TEmotion {
  public:
   Apprehension();
 };
 
-class Sadness : public Divisaction::DEmotion {
+class Sadness : public ThreeMotion::TEmotion {
  public:
   Sadness();
 };

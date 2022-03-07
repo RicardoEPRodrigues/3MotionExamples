@@ -1,33 +1,33 @@
 /*
- * File CoopSceneHannaDecide.cpp in project Divisaction
+ * File CoopSceneHannaDecide.cpp in project ThreeMotion
  *
  * Copyright (C) Ricardo Rodrigues 2016 - All Rights Reserved
  */
 #include "CoopSceneHannaDecide.h"
 
-using namespace Divisaction;
+using namespace ThreeMotion;
 
 CoopSceneHannaDecide::CoopSceneHannaDecide()
     : InterpretModule(), interval(2000), alreadyActed(false), timer(nullptr) {}
 
 void CoopSceneHannaDecide::_execute() {
-  //        if (mentalState->self.emotionHasName("Fear")) {
+  //        if (mentalState->self.EmotionHasName("Fear")) {
   //            return; // Frozen in fear
   //        }
   if (!alreadyActed) {
-    if (auto mentalState = mentalStateWeak.lock()) {
-      if (mentalState->self.emotionHasName("Fear")) {
+    if (auto mentalState = theoryOfMindWeak.lock()) {
+      if (mentalState->self.EmotionHasName("Fear")) {
         alreadyActed = true;  // Frozen in fear
       } else {
         // Follow Bob if he's walking.
         if (!timer) {
-          DOtherMentalState* bobMentalRep;
-          if ((bobMentalRep = mentalState->getOther("Bob"))) {
-            if (bobMentalRep->actionHasName("Long Walk")) {
-              timer = wait(interval, [this]() {
-                if (auto innerMentalState = mentalStateWeak.lock()) {
+          TOtherMentalState* bobMentalRep;
+          if ((bobMentalRep = mentalState->GetOther("Bob"))) {
+            if (bobMentalRep->ActionHasName("Long Walk")) {
+              timer = Wait(interval, [this]() {
+                if (auto innerMentalState = theoryOfMindWeak.lock()) {
                   innerMentalState->self.action =
-                      innerMentalState->self.getAction("Follow");
+                      innerMentalState->self.GetAction("Follow");
                   alreadyActed = true;
                 }
               });

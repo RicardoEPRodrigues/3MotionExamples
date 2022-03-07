@@ -1,26 +1,26 @@
 /*
- * File ReactiveActions.h in project Divisaction
+ * File ReactiveActions.h in project ThreeMotion
  *
  * Copyright (C) Ricardo Rodrigues 2016 - All Rights Reserved
  */
 #ifndef SCREENING_ACTIONS_H
 #define SCREENING_ACTIONS_H
 
-#include "DAction.h"
-#include "DIAgent.h"
+#include "TAction.h"
+#include "TIAgent.h"
 
 namespace Screening {
-class Follow : public Divisaction::DAction {
+class Follow : public ThreeMotion::TAction {
  public:
-  Follow(std::weak_ptr<Divisaction::DIAgent> agent);
+  Follow(std::weak_ptr<ThreeMotion::TIAgent> agent);
 };
 
-class LongWalk : public Divisaction::DAction {
+class LongWalk : public ThreeMotion::TAction {
  public:
   LongWalk();
 };
 
-class ThrowBall : public Divisaction::DAction {
+class ThrowBall : public ThreeMotion::TAction {
  public:
   ThrowBall();
 };

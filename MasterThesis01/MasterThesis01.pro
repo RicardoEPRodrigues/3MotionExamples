@@ -14,8 +14,8 @@ TARGET = MasterThesis01
 TEMPLATE = app
 
 SOURCES += main.cpp\
-    actionprogress.cpp \
-    qthelper.cpp \
+    ../shared/source/actionprogress.cpp \
+    ../shared/source/qthelper.cpp \
     logviewwindow.cpp \
     worldholder.cpp \
     FullModel/Actions.cpp \
@@ -32,8 +32,6 @@ SOURCES += main.cpp\
     NoAnticipation/Modules/NA_CoopSceneBobReact.cpp
 
 HEADERS  += \
-    actionprogress.h \
-    qthelper.h \
     logviewwindow.h \
     worldholder.h \
     FullModel/Actions.h \
@@ -47,11 +45,13 @@ HEADERS  += \
     Screening/Modules/S_CoopSceneHannaReact.h \
     NoAnticipation/NA_Actions.h \
     NoAnticipation/Modules/NA_CoopSceneBobReact.h \
-    NoAnticipation/Modules/NA_CoopSceneHannaReact.h
+    NoAnticipation/Modules/NA_CoopSceneHannaReact.h \
+    ../shared/source/actionprogress.h \
+    ../shared/source/qthelper.h
 
 FORMS    += \
-    actionprogress.ui \
     logviewwindow.ui \
+    ../shared/ui/actionprogress.ui
 
 qmakeforce.target = dummy
 qmakeforce.commands = rm -f Makefile ##to force rerun of qmake
@@ -59,13 +59,13 @@ qmakeforce.depends = FORCE
 PRE_TARGETDEPS += $$qmakeforce.target
 QMAKE_EXTRA_TARGETS += qmakeforce
 
-unix:!macx: LIBS += -L$$PWD/../../Divisaction/cmake-build-debug/ -lDivisaction
+unix:!macx: LIBS += -L$$PWD/../../3Motion/cmake-build-debug/ -lThreeMotion
 
-INCLUDEPATH += $$PWD/../../Divisaction/
-DEPENDPATH += $$PWD/../../Divisaction/
+INCLUDEPATH += $$PWD/../../3Motion/
+DEPENDPATH += $$PWD/../../3Motion/
 
 RESOURCES += \
-    style.qrc
+    ../shared/resources/style.qrc
 
 DISTFILES += \
-    style.css
+    ../shared/resources/style.css

@@ -1,7 +1,7 @@
 #ifndef WORLDHOLDER_H
 #define WORLDHOLDER_H
 
-#include "Divisaction.h"
+#include "ThreeMotion.h"
 
 class WorldHolder
 {
@@ -14,11 +14,11 @@ public:
         SCREENING
     };
 
-    static std::shared_ptr<class Divisaction::DWorldManager> CreateWorld(SceneType type);
+    static std::shared_ptr<class ThreeMotion::TWorldManager> CreateWorld(SceneType type);
 
-    static std::shared_ptr<class Divisaction::DWorldManager> CreateWorldCoop();
-    static std::shared_ptr<class Divisaction::DWorldManager> CreateWorldCoopNoAnticipation();
-    static std::shared_ptr<class Divisaction::DWorldManager> CreateWorldCoopScreening();
+    static std::shared_ptr<class ThreeMotion::TWorldManager> CreateWorldCoop();
+    static std::shared_ptr<class ThreeMotion::TWorldManager> CreateWorldCoopNoAnticipation();
+    static std::shared_ptr<class ThreeMotion::TWorldManager> CreateWorldCoopScreening();
 };
 
 #endif // WORLDHOLDER_H
