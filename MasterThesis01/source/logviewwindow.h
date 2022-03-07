@@ -15,7 +15,7 @@
 #include <memory>
 #include <vector>
 
-#include "../shared/source/actionprogress.h"
+#include "../../shared/source/actionprogress.h"
 
 #include "worldholder.h"
 

@@ -13,44 +13,44 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = MasterThesis01
 TEMPLATE = app
 
-SOURCES += main.cpp\
+SOURCES += source/main.cpp\
+    source/logviewwindow.cpp \
+    source/worldholder.cpp \
+    source/FullModel/Actions.cpp \
+    source/FullModel/Emotions.cpp \
+    source/FullModel/Modules/CoopSceneBobDecide.cpp \
+    source/FullModel/Modules/CoopSceneBobReact.cpp \
+    source/FullModel/Modules/CoopSceneHannaDecide.cpp \
+    source/FullModel/Modules/CoopSceneHannaReact.cpp \
+    source/Screening/S_Actions.cpp \
+    source/Screening/Modules/S_CoopSceneBobReact.cpp \
+    source/Screening/Modules/S_CoopSceneHannaReact.cpp \
+    source/NoAnticipation/NA_Actions.cpp \
+    source/NoAnticipation/Modules/NA_CoopSceneHannaReact.cpp \
+    source/NoAnticipation/Modules/NA_CoopSceneBobReact.cpp \
     ../shared/source/actionprogress.cpp \
     ../shared/source/qthelper.cpp \
-    logviewwindow.cpp \
-    worldholder.cpp \
-    FullModel/Actions.cpp \
-    FullModel/Emotions.cpp \
-    FullModel/Modules/CoopSceneBobDecide.cpp \
-    FullModel/Modules/CoopSceneBobReact.cpp \
-    FullModel/Modules/CoopSceneHannaDecide.cpp \
-    FullModel/Modules/CoopSceneHannaReact.cpp \
-    Screening/S_Actions.cpp \
-    Screening/Modules/S_CoopSceneBobReact.cpp \
-    Screening/Modules/S_CoopSceneHannaReact.cpp \
-    NoAnticipation/NA_Actions.cpp \
-    NoAnticipation/Modules/NA_CoopSceneHannaReact.cpp \
-    NoAnticipation/Modules/NA_CoopSceneBobReact.cpp
 
 HEADERS  += \
-    logviewwindow.h \
-    worldholder.h \
-    FullModel/Actions.h \
-    FullModel/Emotions.h \
-    FullModel/Modules/CoopSceneBobDecide.h \
-    FullModel/Modules/CoopSceneBobReact.h \
-    FullModel/Modules/CoopSceneHannaDecide.h \
-    FullModel/Modules/CoopSceneHannaReact.h \
-    Screening/S_Actions.h \
-    Screening/Modules/S_CoopSceneBobReact.h \
-    Screening/Modules/S_CoopSceneHannaReact.h \
-    NoAnticipation/NA_Actions.h \
-    NoAnticipation/Modules/NA_CoopSceneBobReact.h \
-    NoAnticipation/Modules/NA_CoopSceneHannaReact.h \
+    source/logviewwindow.h \
+    source/worldholder.h \
+    source/FullModel/Actions.h \
+    source/FullModel/Emotions.h \
+    source/FullModel/Modules/CoopSceneBobDecide.h \
+    source/FullModel/Modules/CoopSceneBobReact.h \
+    source/FullModel/Modules/CoopSceneHannaDecide.h \
+    source/FullModel/Modules/CoopSceneHannaReact.h \
+    source/Screening/S_Actions.h \
+    source/Screening/Modules/S_CoopSceneBobReact.h \
+    source/Screening/Modules/S_CoopSceneHannaReact.h \
+    source/NoAnticipation/NA_Actions.h \
+    source/NoAnticipation/Modules/NA_CoopSceneBobReact.h \
+    source/NoAnticipation/Modules/NA_CoopSceneHannaReact.h \
     ../shared/source/actionprogress.h \
     ../shared/source/qthelper.h
 
 FORMS    += \
-    logviewwindow.ui \
+    ui/logviewwindow.ui \
     ../shared/ui/actionprogress.ui
 
 qmakeforce.target = dummy
