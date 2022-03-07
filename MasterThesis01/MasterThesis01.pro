@@ -61,8 +61,8 @@ QMAKE_EXTRA_TARGETS += qmakeforce
 
 unix:!macx: LIBS += -L$$PWD/../../3Motion/cmake-build-debug/ -lThreeMotion
 
-INCLUDEPATH += $$PWD/../../3Motion/
-DEPENDPATH += $$PWD/../../3Motion/
+INCLUDEPATH += $$PWD/../../3Motion/Source/
+DEPENDPATH += $$PWD/../../3Motion/Source/
 
 RESOURCES += \
     ../shared/resources/style.qrc
